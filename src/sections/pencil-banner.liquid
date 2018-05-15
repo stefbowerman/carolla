@@ -1,0 +1,30 @@
+<div data-section-id="{{ section.id }}" data-section-type="pencil-banner">
+  {% if section.settings.banner_enabled %}
+    <div class="pencil-banner">
+      <div class="container">
+        {{ section.settings.banner_content }}
+        {% comment %}<a href="#" class="pencil-banner__close" data-pencil-banner-close>&times;</a>{% endcomment %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Pencil Banner",
+    "settings": [
+      {
+        "id": "banner_enabled",
+        "type": "checkbox",
+        "label": "Show Pencil Banner",
+        "default": true
+      },
+      {
+        "id": "banner_content",
+        "type": "richtext", 
+        "label": "Pencil Banner Content",
+        "default": "<p>Default Banner Text</p>"
+      }
+    ]
+  }
+{% endschema %}
