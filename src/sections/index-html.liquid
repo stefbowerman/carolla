@@ -1,0 +1,50 @@
+<div class="container">
+  {% if section.settings.title != blank %}
+    <h3 class="content-header">{{ section.settings.title }}</h3>
+  {% endif %}
+  <div>
+    {{ section.settings.html }}
+  </div>
+  {% if section.settings.cta_text != blank and section.settings.cta_url != blank %}
+    <div class="content-footer">
+      <a href="{{ section.settings.cta_url }}" class="btn btn-primary">{{ section.settings.cta_text }}</a>
+    </div>
+  {% endif %}    
+</div>
+
+
+{% schema %}
+  {
+    "name": "HTML",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text"
+      },
+      {
+        "type": "url",
+        "id": "cta_url",
+        "label": "CTA Link"
+      },      
+      {
+        "type": "textarea",
+        "id": "html",
+        "label": "HTML"
+      }
+    ],
+    "presets": [
+      {
+        "category": "Misc",
+        "name": "HTML",
+        "settings": {
+        }
+      }
+    ]    
+  }
+{% endschema %}

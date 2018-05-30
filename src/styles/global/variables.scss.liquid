@@ -8,11 +8,13 @@
 $color-black:       #000;
 $color-white:       #FFF;
 $color-grey:        #CCC;
+$color-blue:        #00AEEF;
+$color-red:         #00AEEF;
 
 // Theme Colors
-$text-color:        $color-black;
-$body-bg:           $color-white;
-$color-primary:     #049271;
+$text-color:        $color-white;
+$body-bg:           $color-black;
+$color-primary:     $color-blue;
 
 // Dot Colors
 $color-dot-white:   $color-white;
@@ -52,12 +54,12 @@ $font-weight-bold:          700;
 $font-weight-base:          $font-weight-normal !default;
 
 $letter-spacing-base:       0.015em;
-$letter-spacing-h1:         0em;
-$letter-spacing-h2:         0em;
-$letter-spacing-h3:         0em;
-$letter-spacing-h4:         0em;
-$letter-spacing-h5:         0em;
-$letter-spacing-h6:         0em;
+$letter-spacing-h1:         0.08em;
+$letter-spacing-h2:         0.08em;
+$letter-spacing-h3:         0.08em;
+$letter-spacing-h4:         0.05em;
+$letter-spacing-h5:         0.04em;
+$letter-spacing-h6:         0.04em;
 
 $line-height-base:          1.5; //** Unit-less `line-height` for use in components like buttons.
 $line-height-computed:      $font-size-base * $line-height-base !default; //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
@@ -71,13 +73,13 @@ $line-height-h6:            1.2;
 //** By default, this inherits from the `<body>`.
 $headings-font-family:      inherit !default;
 $headings-font-weight:      $font-weight-bold !default;
-$headings-color:            $color-black !default;
+$headings-color:            $color-white !default;
 $headings-text-transform:   none;
 $headings-margin-bottom:    1rem;
 
-$link-color:                $color-black !default;
+$link-color:                $color-white !default;
 $link-decoration:           none !default;
-$link-hover-color:          lighten($link-color, 9%) !default;
+$link-hover-color:          darken($link-color, 9%) !default;
 $link-hover-decoration:     none !default;
 
 /*================ Spacing Variables ================*/
@@ -428,12 +430,12 @@ $pencil-banner-text-color:              $color-white;
 
 // #Header
 $header-bp-min:                         $screen-md-min; // Above this breakpoint, switch to the full desktop nav
-$header-height-small:                   65px;
-$header-height-base:                    75px;
-$header-bg:                             $color-white;
+$header-height-small:                   100px;
+$header-height-base:                    125px;
+$header-bg:                             $body-bg;
 $header-text-color:                     $text-color;
 
-$header-logo-width:                     50px;
+$header-logo-width:                     100px;
 
 $header-dropdown-bg:                    $header-bg;
 $header-dropdown-box-shadow:            0px 8px 15px -10px transparentize($color-black, 0.85);
