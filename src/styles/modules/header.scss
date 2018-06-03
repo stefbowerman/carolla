@@ -57,7 +57,11 @@
 }
 
 .header-logo {
-  max-width: $header-logo-width;
+  max-width: $header-logo-width-small;
+  
+  @media (min-width: $header-bp-min) {
+    max-width: $header-logo-width;
+  }
 }
 .header-logo__image {
   @include translateZ(0); // Prevent bluriness from scaling
@@ -84,6 +88,7 @@
   }  
 
   &.header-nav--center {
+    @include flex(2);
     @media (min-width: $header-bp-min) {
       @include justify-content(center);  
     } 
@@ -94,14 +99,13 @@
   // Default to showing it in the center on large screens, but allow it flush left if necessary
   &.header-nav--logo {
 
-    // These flex properties cause the width of the logo container to be determined by the width itself instead of adding extra whitespace
-    // This gives us more room to use for menus. :)
-    // Move these rules into the `&:not(.header-nav--left)` selector below if you want a left aligned logo and center menu that is *actually* centered with the screen
-    @include flex-grow(inherit);
-    @include flex-basis(auto);    
-
     &:not(.header-nav--left) {      
       
+      // These flex properties cause the width of the logo container to be determined by the width itself instead of adding extra whitespace
+      // This gives us more room to use for menus. :)
+      @include flex-grow(inherit);
+      @include flex-basis(auto);    
+
       @media (max-width: $header-bp-min - 1px) {
         padding-left: 0;
       }
@@ -140,6 +144,15 @@
   list-style: none;
   margin: 0;
   padding: 0;
+
+  & + & {
+    margin-left: 100px;
+  }
+
+  svg {
+    height: 16px;
+    width: 16px;
+  }
 }
 
 .header-nav__menu-item {
@@ -156,6 +169,7 @@
 
   > a {
     padding: 27px 4px; // use vertical padding to match the height of the header
+    text-transform: uppercase;
   }
 }
 

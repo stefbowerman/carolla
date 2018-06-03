@@ -55,6 +55,23 @@
   {% assign menu_html = menu_html | append: '</ul>' %}
 {% endif %}
 
+{% capture social_list_items %}
+  {%- assign social_accounts = 'Facebook, Instagram, Twitter, Youtube' | split: ', ' -%}
+  {% for social in social_accounts %}
+    {% assign social_handle = social | handleize %}
+    {% capture social_enabled_handle %}social_{{ social_handle }}_enabled{% endcapture %}
+    {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+    {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+    {% if settings[social_link] != blank and section.settings[social_enabled_handle] %}
+      <li class="header-nav__menu-item">
+        <a href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+          {% include social_icon %}
+          <span class="icon-fallback-text">{{ social }}</span>
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
 
 <div data-section-id="{{ section.id }}" data-section-type="header">
 
@@ -75,6 +92,12 @@
 
       {% comment %} User Nav (Account + Cart) {% endcomment %}
       <div class="header-nav header-nav--right header-nav--hide-on-mobile">
+
+        {% if social_list_items %}
+          <ul class="header-nav__menu">
+            {{ social_list_items }}
+          </ul>
+        {% endif %}
         
         {% include 'header-menu-user' %}
 
@@ -95,7 +118,32 @@
 {% schema %}
   {
     "name": "Header",
-    "settings": [],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_facebook_enabled",
+        "label": "Facebook"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_instagram_enabled",
+        "label": "Instagram"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_twitter_enabled",
+        "label": "Twitter"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_youtube_enabled",
+        "label": "Youtube"
+      }
+    ],
     "blocks": [
       {
         "type": "nav_item",

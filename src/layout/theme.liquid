@@ -77,9 +77,6 @@
 <body id="{{ page_title | handle }}" class="{{ body_class | strip | strip_newlines }}">
 
   <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
-  
-  {% comment %} Feel free to comment this out / remove this section if not needed.  There is no JS attached to it. {% endcomment %}
-  {% section 'swatches' %} 
     
   {% section 'pencil-banner' %}
 
@@ -88,8 +85,7 @@
   <div class="layout-wrapper">
 
     {% comment %} Select the appropriate 'header-*' section for the theme you are building and remove the files for the others {% endcomment %}
-    {% section 'header-logo-center' %}
-    {% comment %}{% section 'header-logo-left' %} {% endcomment %}
+    {% section 'header-logo-left' %} 
 
     <main role="main" id="MainContent">
       {{ content_for_layout }}

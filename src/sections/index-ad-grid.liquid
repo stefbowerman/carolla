@@ -1,0 +1,71 @@
+<div class="container">
+  {% if section.settings.title != blank %}
+    <h3 class="content-header">{{ section.settings.title }}</h3>
+  {% endif %}
+  <div class="content-grid content-grid--centered content-grid--{{ section.settings.ads_per_row }}-col">
+    {% for block in section.blocks %}
+      <div class="content-grid__item" {{ block.shopify_attributes }}>
+        <div>
+          {% if block.settings.url %}<a href="{{ block.settings.url }}" title="{{ block.settings.title }}">{% endif %}
+          <img src="{{ block.settings.image | img_url: '250x300' }}" style="max-width: 100%; display: block; margin: 0 auto;" />
+          {% if block.settings.url %}</a>{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Ad Grid",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "select",
+        "id": "ads_per_row",
+        "label": "Ads per row",
+        "options": [
+          { "value": "3", "label": "3" },
+          { "value": "4", "label": "4" }
+        ],
+        "default": "3"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "ad",
+        "name": "Ad": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "Cropped to 250x300"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Misc",
+        "name": "Ad Grid",
+        "settings": {},       
+        "blocks": []
+      }
+    ]    
+  }
+{% endschema %}

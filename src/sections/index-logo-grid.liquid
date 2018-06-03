@@ -1,0 +1,62 @@
+<div class="container">
+  {% if section.settings.title != blank %}
+    <h3 class="content-header">{{ section.settings.title }}</h3>
+  {% endif %}
+  <div class="content-grid content-grid--centered content-grid--5-col">
+    {% for block in section.blocks %}
+      <div class="content-grid__item" {{ block.shopify_attributes }}>
+        <div class="logo-item">
+          {% if block.settings.url %}<a href="{{ block.settings.url }}" title="{{ block.settings.title }}">{% endif %}
+          <img src="{{ block.settings.image | img_url: '250x250' }}" />
+          {% if block.settings.url %}</a>{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Logo Grid",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      } 
+    ],
+    "blocks": [
+      {
+        "type": "logo",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Link",
+            "info": "Optional"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Misc",
+        "name": "Logo Grid",
+        "settings": {},       
+        "blocks": []
+      }
+    ]    
+  }
+{% endschema %}

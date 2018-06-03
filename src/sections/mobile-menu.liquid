@@ -7,7 +7,7 @@
         <a href="#" class="drawer__close" data-drawer-close>
           {% include 'icon-close' %}
         </a>        
-        <h5 class="drawer__header-title">Mobile Menu</h5>
+        <h5 class="drawer__header-title">Menu</h5>
       </div>
       <div class="drawer__body">
         <div class="drawer__body-contents">
@@ -62,7 +62,7 @@
           
 
           {% capture social_list_items %}
-            {%- assign social_accounts = 'Twitter, Facebook, Pinterest, Instagram, Snapchat, Tumblr, Youtube, Vimeo' | split: ', ' -%}
+            {%- assign social_accounts = 'Facebook, Instagram, Twitter, Youtube' | split: ', ' -%}
             {% for social in social_accounts %}
               {% assign social_handle = social | handleize %}
               {% capture social_enabled_handle %}social_{{ social_handle }}_enabled{% endcapture %}
@@ -132,22 +132,12 @@
       {
         "type": "header",
         "content": "Social"
-      },
-      {
-        "type": "checkbox",
-        "id": "social_twitter_enabled",
-        "label": "Twitter"
-      },      
+      },    
       {
         "type": "checkbox",
         "id": "social_facebook_enabled",
         "label": "Facebook"
-      },
-      {
-        "type": "checkbox",
-        "id": "social_pinterest_enabled",
-        "label": "Pinterest"
-      },      
+      },   
       {
         "type": "checkbox",
         "id": "social_instagram_enabled",
@@ -155,23 +145,13 @@
       },
       {
         "type": "checkbox",
-        "id": "social_snapchat_enabled",
-        "label": "Snapchat"
-      },
-      {
-        "type": "checkbox",
-        "id": "social_tumblr_enabled",
-        "label": "Tumblr"
+        "id": "social_twitter_enabled",
+        "label": "Twitter"
       },
       {
         "type": "checkbox",
         "id": "social_youtube_enabled",
         "label": "Youtube"
-      },
-      {
-        "type": "checkbox",
-        "id": "social_vimeo_enabled",
-        "label": "Vimeo"
       }
     ]
   }

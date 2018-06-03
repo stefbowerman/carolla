@@ -42,3 +42,12 @@
     margin-bottom: 0;
   }
 }
+
+// Homepage layout
+
+.template-index #MainContent {
+
+  .shopify-section + .shopify-section {
+    margin-top: 100px;
+  }
+}

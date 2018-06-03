@@ -16,12 +16,12 @@
 }
 
 .article-card__info-title {
-  margin-bottom: 8px;
+  margin-bottom: $spacer;
 }
 
 .article-card__info-excerpt {
   font-size: $font-size-small;
-  margin-bottom: 8px;
+  margin-bottom: $spacer*2;
 }
 
 .article-card__info-tags {

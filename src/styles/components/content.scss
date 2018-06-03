@@ -29,7 +29,12 @@
 
   @media (min-width: $screen-sm-min) {
     margin-bottom: $grid-gutter-width*2;
-  }  
+  } 
+
+  .content-grid--5-col & {
+    @include flex-basis(percentage(1/2));
+    max-width: percentage(1/2);
+  }
 
   // Default is to do 3 across on medium-up screens
   // Add support for 2 and 4 across using a modifier class on the parent .content-grid
@@ -43,6 +48,11 @@
     }
 
     .content-grid--4-col & {
+      @include flex-basis(percentage(1/4));
+      max-width: percentage(1/4);
+    }
+
+    .content-grid--5-col & {
       @include flex-basis(percentage(1/4));
       max-width: percentage(1/4);
     }
@@ -77,6 +87,13 @@
     &.content-grid__item--full {
       @include flex-basis(percentage(1));
       max-width: percentage(1);
+    }
+  }
+
+  @media (min-width: $screen-lg-min) {
+    .content-grid--5-col & {
+      @include flex-basis(percentage(1/5));
+      max-width: percentage(1/5);
     }
   }
 
