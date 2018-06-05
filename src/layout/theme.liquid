@@ -76,9 +76,18 @@
 
 <body id="{{ page_title | handle }}" class="{{ body_class | strip | strip_newlines }}">
 
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=1402062303377400&autoLogAppEvents=1';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
   <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
     
-  {% section 'pencil-banner' %}
+  {% comment %}{% section 'pencil-banner' %}{% endcomment %}
 
   {% section 'mobile-menu' %}
 
@@ -96,7 +105,7 @@
   </div>
 
   {% comment %} Select the appropriate 'subscription-*' section for the theme you are building and remove the files for the others {% endcomment %}
-  {% section 'subscription-modal' %}
+  {% comment %}{% section 'subscription-modal' %}{% endcomment %}
   {% comment %}{% section 'subscription-slideup' %}{% endcomment %}
 
   {% unless template == 'cart' %}

@@ -8,3 +8,18 @@
     width: 100%;
   }
 }
+
+.logo-item__caption {
+  text-align: center;
+  font-size: $font-size-small;
+  @include transition(opacity $transition-duration-fast $transition-timing-function-in-out-ui);
+
+  html.no-touchevents .logo-item & {
+    opacity: 0;
+  }
+
+  html.no-touchevents .logo-item:hover &,
+  html.no-touchevents .logo-item:focus & {
+    opacity: 1;
+  }
+}

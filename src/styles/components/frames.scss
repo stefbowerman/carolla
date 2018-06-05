@@ -39,6 +39,12 @@
   @include aspect-ratio(6, 4);
 }
 
+.frame--250x300 {
+  width: 250px;
+  max-width: 100%;
+  @include aspect-ratio(250, 300);
+}
+
 // Responsive frame sizing
 @media (max-width: $screen-xs-max) {
   .frame--xs-16x9 { @include aspect-ratio(16, 9); }

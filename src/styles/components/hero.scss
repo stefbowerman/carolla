@@ -1,0 +1,179 @@
+// -----------------------------------------------------------------------------
+// Hero 
+// -----------------------------------------------------------------------------
+
+.hero {
+  position: relative;
+  // @include display-flex;
+  // @include flex-direction(column);
+  height: auto;
+
+  @media (min-width: $screen-sm-min) {
+    min-height: 500px; // something small
+    // height: 75vh; // needs to have a height set on it in order for the 3up layout to work
+    // @include flex-direction(row);
+  }
+
+  // 3 Blocks Version
+  &.hero--block-count-3 {
+    // @include flex-wrap(wrap);
+    // @include flex-direction(column);
+  }
+
+  .slideshow-wrapper,
+  .slick-slider,
+  .slick-list,
+  .slick-track {
+      height: 100%;
+  }
+}
+
+.hero__slide {
+  height: 100%;
+}
+
+.hero__block {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  @include display-flex;
+  @include align-items(center);
+  // @include flex(1);
+
+  // 2 blocks go side by side
+  // .hero--block-count-2 & {
+  //   @media (min-width: $screen-sm-min) {
+  //     width: 50%;
+  //   }
+  // }
+}
+
+.hero__block--text-dark {
+  
+  &,
+  .hero__top-title,
+  .hero__title,
+  .hero__text {
+    color: $color-black;
+  }
+}
+
+.hero__block--text-dark {}
+
+.hero__bg-container,
+.hero__bg-image {
+  @include stretch-within;
+  z-index: -1;
+}
+
+.hero__bg-container {
+
+  @media (min-width: $screen-md-min) {
+   
+    // 2 blocks go side by side - add a white gap between the two
+    .hero--block-count-2 .hero__block:first-child & {
+      right: 5px;
+    }
+
+    .hero--block-count-2 .hero__block:last-child & {
+      left: 5px;
+    }
+  }
+}
+
+.hero__bg-image {
+  background: {
+    size: cover;
+    position: center;
+  }
+}
+
+.hero__content-container {
+  position: relative;
+  width: 90%;
+  @include center-block;
+  padding: 150px $grid-gutter-width / 2;
+  // Above this breakpoint, JS + flexbox takes over to create full screen layout with v-centered items - so this padding isn't crucial
+  @media (min-width: $screen-sm-min) {
+    padding-top: $grid-gutter-width;
+    padding-bottom: $grid-gutter-width;
+  }
+}
+
+.hero__content {
+  @include center-block;
+  text-align: center;
+
+  // Center everything on mobile
+  // Apply these justification classes above small screen sizes
+  @media (min-width: $screen-sm-min) {
+    text-align: center;
+
+    &.hero__content--left {
+      margin-left: 0;
+    }
+
+    &.hero__content--right {
+      margin-right: 0;
+    }
+    
+    &.hero__content--center {
+    }
+
+    &.hero__content--text-left {
+      text-align: left;
+    }
+
+    &.hero__content--text-right {
+      text-align: right;
+    }
+    
+    &.hero__content--text-center {
+      text-align: center;
+    }
+
+  }
+
+  // Last children don't get bottom margins
+  .hero__title:last-child,
+  .hero__text:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.hero__top-title {
+  margin-bottom: $spacer*1.9;
+}
+
+.hero__title {
+  margin-bottom: 20px;
+  font-size: $font-size-h2;
+
+  @media (min-width: $screen-md-min) {
+    // If there's 1 block, increase the font size
+    .hero--block-count-1 & {
+      font-size: $font-size-h1;
+    }
+  }
+}
+
+.hero__text {
+  margin-bottom: 45px;
+  display: none;
+
+  @media (min-width: $screen-md-min) {
+    display: block;
+  }
+}
+
+.hero__cta {
+  margin-top: $spacer*3;
+
+  .btn {
+    width: 100%;
+    
+    @media (min-width: $screen-md-min) {
+      width: auto;
+    }
+  }
+}

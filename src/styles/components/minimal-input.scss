@@ -8,10 +8,16 @@
 
 .minimal-input-box__input {
   @extend .form-control;
+  color: $color-white;
   padding: 0 30px 0 0;
   border-width: 0 0 2px 0;
   background-color: transparent;
   height: $minimal-input-height;
+
+  &:focus {
+    color: $color-white;
+    border-color: $color-white;
+  }
 }
 
 .minimal-input-box__submit {
@@ -24,25 +30,9 @@
   width: 30px;
   text-align: right;
   cursor: pointer;
-}
 
-// White form controls for placement on dark backgrounds
-.minimal-input-box--inverted {
-
-  .minimal-input-box__input {
-    color: $color-white;
-
-    &:focus {
-      color: $color-white;
-      border-color: $color-white;
-    }
-  }
-
-
-  .minimal-input-box__submit {
-    svg {
-      fill: $color-white;
-    }
+  svg {
+    fill: $color-white;
   }
 }
 

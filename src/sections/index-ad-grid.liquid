@@ -5,11 +5,10 @@
   <div class="content-grid content-grid--centered content-grid--{{ section.settings.ads_per_row }}-col">
     {% for block in section.blocks %}
       <div class="content-grid__item" {{ block.shopify_attributes }}>
-        <div>
-          {% if block.settings.url %}<a href="{{ block.settings.url }}" title="{{ block.settings.title }}">{% endif %}
-          <img src="{{ block.settings.image | img_url: '250x300' }}" style="max-width: 100%; display: block; margin: 0 auto;" />
-          {% if block.settings.url %}</a>{% endif %}
-        </div>
+        {% if block.settings.url != blank %}<a href="{{ block.settings.url }}" title="{{ block.settings.title }}">{% endif %}
+          <div class="frame frame--250x300" style="background-image: url({{ block.settings.image | img_url: '500x' }});">
+          </div>
+        {% if block.settings.url != blank %}</a>{% endif %}
       </div>
     {% endfor %}
   </div>
@@ -39,7 +38,8 @@
     "blocks": [
       {
         "type": "ad",
-        "name": "Ad": [
+        "name": "Ad",
+        "settings": [
           {
             "type": "image_picker",
             "id": "image",
