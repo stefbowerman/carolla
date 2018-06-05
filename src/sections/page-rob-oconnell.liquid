@@ -1,0 +1,227 @@
+{% include 'page-family-section-renderer', section: section %}
+
+{% schema %}
+  {
+    "name": "Family - Rob O'Connell",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "main_image",
+        "label": "Main Image"
+      },
+      {
+        "type": "header",
+        "content": "Social"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook Link"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram Link"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter",
+        "label": "Twitter Link"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube Link"
+      },
+      {
+        "type": "textarea",
+        "id": "spotify_embed",
+        "label": "Spotify Embed"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+             "type": "collection",
+             "id": "collection",
+             "label": "Collection"
+          }
+        ]
+      },
+      {
+        "type": "article_grid",
+        "name": "Article Grid",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+             "type": "article",
+             "id": "article_1",
+             "label": "Article 1"
+          },
+          {
+             "type": "article",
+             "id": "article_2",
+             "label": "Article 2"
+          },
+          {
+             "type": "article",
+             "id": "article_3",
+             "label": "Article 3"
+          },
+          {
+             "type": "article",
+             "id": "article_4",
+             "label": "Article 4"
+          },
+          {
+             "type": "article",
+             "id": "article_5",
+             "label": "Article 5"
+          },
+          {
+             "type": "article",
+             "id": "article_6",
+             "label": "Article 6"
+          }
+        ]
+      },
+      {
+        "type": "link_grid",
+        "name": "Link Grid",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "header",
+            "content": "Link 1"
+          },
+          {
+             "type": "text",
+             "id": "link_1_title",
+             "label": "Title"
+          },
+          {
+             "type": "url",
+             "id": "link_1_url",
+             "label": "Link"
+          },
+          {
+             "type": "image_picker",
+             "id": "link_1_image",
+             "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Link 2"
+          },
+          {
+             "type": "text",
+             "id": "link_2_title",
+             "label": "Title"
+          },
+          {
+             "type": "url",
+             "id": "link_2_url",
+             "label": "Link"
+          },
+          {
+             "type": "image_picker",
+             "id": "link_2_image",
+             "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Link 3"
+          },
+          {
+             "type": "text",
+             "id": "link_3_title",
+             "label": "Title"
+          },
+          {
+             "type": "url",
+             "id": "link_3_url",
+             "label": "Link"
+          },
+          {
+             "type": "image_picker",
+             "id": "link_3_image",
+             "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Link 4"
+          },
+          {
+             "type": "text",
+             "id": "link_4_title",
+             "label": "Title"
+          },
+          {
+             "type": "url",
+             "id": "link_4_url",
+             "label": "Link"
+          },
+          {
+             "type": "image_picker",
+             "id": "link_4_image",
+             "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Link 5"
+          },
+          {
+             "type": "text",
+             "id": "link_5_title",
+             "label": "Title"
+          },
+          {
+             "type": "url",
+             "id": "link_5_url",
+             "label": "Link"
+          },
+          {
+             "type": "image_picker",
+             "id": "link_5_image",
+             "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Link 6"
+          },
+          {
+             "type": "text",
+             "id": "link_6_title",
+             "label": "Title"
+          },
+          {
+             "type": "url",
+             "id": "link_6_url",
+             "label": "Link"
+          },
+          {
+             "type": "image_picker",
+             "id": "link_6_image",
+             "label": "Image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

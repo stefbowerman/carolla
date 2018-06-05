@@ -36,6 +36,7 @@ window.theme = window.theme || {};
 // =require sections/pencilBanner.js
 // =require sections/subscriptionModal.js
 // =require sections/subscriptionSlideup.js
+// =require sections/subscription.js
 // =require sections/instagramFeed.js
 // =require sections/slideshow.js
 // =require sections/header.js
@@ -44,6 +45,7 @@ window.theme = window.theme || {};
 // =require sections/cart.js
 // =require sections/mobileMenu.js
 // =require sections/blog.js
+// =require sections/hero.js
 
 /*================ Templates ================*/
 // =require templates/customers-addresses.js
@@ -64,6 +66,7 @@ window.theme = window.theme || {};
     sections.register('pencil-banner', theme.PencilBanner);
     sections.register('subscription-modal', theme.SubscriptionModal);
     sections.register('subscription-slideup', theme.SubscriptionSlideup);
+    sections.register('subscription', theme.Subscription);
     sections.register('instagram-feed', theme.InstagramFeed);
     sections.register('slideshow', theme.Slideshow);
     sections.register('header', theme.Header);
@@ -72,6 +75,7 @@ window.theme = window.theme || {};
     sections.register('cart', theme.Cart);
     sections.register('mobile-menu', theme.MobileMenu);
     sections.register('blog', theme.Blog);
+    sections.register('hero', theme.Hero);
 
     $('.in-page-link').on('click', function(evt) {
       slate.a11y.pageLinkFocus($(evt.currentTarget.hash));

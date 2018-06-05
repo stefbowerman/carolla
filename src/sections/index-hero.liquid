@@ -1,0 +1,190 @@
+<div data-section-id="{{ section.id }}" data-section-type="hero" data-fullscreen-behavior="{{ section.settings.fullscreen }}">
+
+  <style type="text/css">
+    {% for block in section.blocks %}
+      {% if block.settings.background_base %}
+      #hero__bg-image--{{ block.id }} {
+        background-image: url({{ block.settings.background_base | img_url: '1600x' }});
+      }
+      {% endif %}
+      @media (max-width: 991px) {
+        #hero__bg-image--{{ block.id }} {
+          {% if block.settings.background_medium %}
+            background-image: url({{ block.settings.background_medium | img_url: '1200x' }});
+          {% elsif block.settings.background_base %}
+            background-image: url({{ block.settings.background_base | img_url: '1200x' }});
+          {% endif %}
+        }
+      }
+      @media (max-width: 767px) {
+        #hero__bg-image--{{ block.id }} {
+          {% if block.settings.background_small %}
+            background-image: url({{ block.settings.background_small | img_url: '800x' }});
+          {% elsif block.settings.background_medium %}
+            background-image: url({{ block.settings.background_medium | img_url: '800x' }});            
+          {% elsif block.settings.background_base %}
+            background-image: url({{ block.settings.background_base | img_url: '800x' }});
+          {% endif %}
+        }
+      }
+    {% endfor %}
+  </style>
+
+  <div class="hero hero--block-count-{{ section.blocks.size }}" data-hero>
+
+    <div class="slideshow-wrapper" data-slideshow-wrapper>
+      <div class="slideshow" id="slideshow-{{ section.id }}" data-slideshow>    
+        
+        {% for block in section.blocks %}
+          <div class="hero__slide" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" data-slideshow-slide>
+            <div class="hero__block{% if block.settings.dark_text %} hero__block--text-dark{% endif %}" {{ block.shopify_attributes }}>
+              <div class="hero__bg-container">
+                <div id="hero__bg-image--{{ block.id }}" class="hero__bg-image"></div>
+                {% comment %} This video part is still WIP since we don't know the provider yet. {% endcomment %}
+                {% if block.settings.background_video_url != blank and block.settings.background_video_url.type == "vimeo" %}
+                  <div class="video-cover" data-video-id="{{ block.settings.background_video_url.id }}" data-video-type="{{ block.settings.background_video_url.type }}"></div>
+                {% endif %}
+              </div>
+              <div class="hero__content-container">
+                <div class="hero__content hero__content--{{ block.settings.content_alignment }} hero__content--text-{{ block.settings.text_alignment }}" style="max-width: {{ block.settings.content_max_width | append: 'px' }}">
+
+                  {% if block.settings.title != blank %}
+                    <h2 class="hero__title">{{ block.settings.title }}</h2>
+                  {% endif %}
+                  {% if block.settings.text != blank %}
+                    <p class="hero__text p1">{{ block.settings.text }}</p>
+                  {% endif %}
+
+                  {% if block.settings.cta_url != blank and block.settings.cta_text != blank %}
+                    <div class="hero__cta">
+                      <a href="{{ block.settings.cta_url }}" class="btn btn-primary">
+                        {{ block.settings.cta_text }}                 
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Hero",
+    "max_blocks": 8,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id" : "fullscreen",
+        "label": "Stretch hero to browser height",
+        "default": false
+      }
+    ],
+    "blocks": [
+      {
+        "type": "hero_block",
+        "name": "Block",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },          
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA Text"
+          },
+          {
+            "type": "url",
+            "id": "cta_url",
+            "label": "CTA Link"
+          },        
+          {
+            "type": "header",
+            "content": "Design"
+          },
+          {
+            "type": "checkbox",
+            "id" : "dark_text",
+            "label": "Dark Text",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id":   "content_max_width",
+            "min":  300,
+            "max":  800,
+            "step": 25,
+            "unit": "px",
+            "label": "Max Content Width",
+            "default": 600
+          },          
+          {
+            "type":      "select",
+            "id":        "content_alignment",
+            "label":     "Content Alignment",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ],
+            "default":   "left"
+          },
+          {
+            "type":      "select",
+            "id":        "text_alignment",
+            "label":     "Text Alignment",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ],
+            "default":   "left"
+          },
+          {
+            "type": "header",
+            "content": "Background",
+            "info": "Main image will used as default.  Medium and small images will be displayed if they are set."
+          },
+          {
+            "type": "image_picker",
+            "id": "background_base",
+            "label": "Main Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "background_medium",
+            "label": "Main Image - Medium Screens"
+          },
+          {
+            "type": "image_picker",
+            "id": "background_small",
+            "label": "Main Image - Small Screens"
+          },
+          {
+            "type": "video_url",
+            "id": "background_video_url",
+            "label": "Background Video URL",
+            "accept": ["vimeo"]
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

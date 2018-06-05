@@ -1,0 +1,153 @@
+{%- comment %}
+
+  Page CMS Section Renderer
+  ------------------------------------------------------------------------------
+
+  Usage:
+
+  {% include 'page-cms-section-renderer',
+              section: section
+  %}
+
+  Renders section content.  This snippet should be used as the single point of entry for rendering CMS section content.
+
+{% endcomment -%}
+
+<div class="layout-content-wrapper flush-top" data-section-id="{{ section.id }}" data-section-type="family-page">
+
+  <div class="container">
+
+    {% include 'page-header', title: 'The Family' %}
+
+    <div class="row">
+      <div class="col-md-4">
+
+        {% if section.settings.main_image %}
+          <img src="{{ section.settings.main_image | img_url: '400x' }}" />
+        {% endif %}
+
+      </div>
+      <div class="col-md-4">
+
+        {% capture social_list_items %}
+          {%- assign social_accounts = 'Facebook, Instagram, Twitter, YouTube' | split: ', ' -%}
+          {% for social in social_accounts %}
+            {% assign social_handle = social | handleize %}
+            {% capture social_link %}social_{{ social_handle }}{% endcapture %}
+            {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+            {% if section.settings[social_link] != blank %}
+              <li>
+                <a href="{{ section.settings[social_link] }}">
+                  {% include social_icon %}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% endcapture %}
+
+        {% if social_list_items != blank %}
+          <ul class="list-inline">
+            {{ social_list_items }}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="col-md-4">
+
+        {% if section.settings.spotify_embed != blank %}
+          {{ section.settings.spotify_embed }}
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h4>{{ page.title }}</h4>
+        <div class="rte">
+          {{ page.content }}
+        </div>
+      </div>
+    </div>
+
+    {% for block in section.blocks %}  
+      <div class="cms-block" {{ block.shopify_attributes }}>
+        {% if block.type == "collection" %}
+          <h3 class="content-header u-ta-left">{{ block.settings.title }}</h3>
+
+          {% assign block_collection_handle = block.settings.collection %}
+          {% assign block_collection = collections[block.settings.collection] %}
+          {% if block_collection and block_collection.products.size > 0 %}
+            <div class="content-grid content-grid--4-col">
+            {% for i in (1..8) %}
+              {% assign p = block_collection.products[i] %}
+              <div class="content-grid__item">
+                {% include 'product-card', product: p %}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+        {% elsif block.type == "article_grid" %}
+          {% assign article_count = 0 %}
+          {% capture article_grid_html %}
+            {% for i in (1..6) %}
+              {% capture article_settings_handle %}article_{{ i }}{% endcapture %}
+              {% assign article = articles[block.settings[article_settings_handle]] %}
+              {% if article != blank %}
+                <div class="content-grid__item">
+                  {% include 'article-card', article: article, show_author: false, show_tags: false, show_date: false %}
+                </div>
+                {% assign article_count = article_count | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+          {% endcapture %}
+
+          <div class="container">
+            {% if block.settings.title != blank %}
+              <h3 class="content-header u-ta-left">{{ block.settings.title }}</h3>
+            {% endif %}
+            <div class="content-grid content-grid--centered content-grid--3-col">
+              {{ article_grid_html }}
+            </div>
+          </div>
+
+        {% elsif block.type == "link_grid" %}
+
+          {% capture article_grid_html %}
+            {% for i in (1..6) %}
+              {% capture link_title_setting_handle %}link_{{ i }}_title{% endcapture %}
+              {% capture link_url_setting_handle %}link_{{ i }}_url{% endcapture %}
+              {% capture link_image_setting_handle %}link_{{ i }}_image{% endcapture %}
+
+              {% assign link_title = block.settings[link_title_setting_handle] %}
+              {% assign link_url   = block.settings[link_url_setting_handle] %}
+              {% assign link_image = block.settings[link_image_setting_handle] %}
+              <div class="content-grid__item">
+                {% if link_url != blank %}<a href="{{ link_url }}">{% else %}<div>{% endif %}
+                {% if link_image != blank %}
+                  <p>
+                    <img src="{{ link_image | img_url: '400x400', crop: 'center' }}" />
+                  </p>
+                {% endif %}
+                <h6>{{ link_title }}</h6>
+                {% if link_url != blank %}</a>{% else %}</div>{% endif %} 
+              </div>
+            {% endfor %}
+          {% endcapture %}
+
+          <div class="container">
+            {% if block.settings.title != blank %}
+              <h3 class="content-header u-ta-left">{{ block.settings.title }}</h3>
+            {% endif %}
+            <div class="content-grid content-grid--centered content-grid--3-col">
+              {{ article_grid_html }}
+            </div>
+          </div>
+
+        {% endif %}
+      </div>
+    {% endfor %}
+
+  </div>
+
+</div>

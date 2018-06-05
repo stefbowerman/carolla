@@ -6,8 +6,9 @@
     {% for block in section.blocks %}
       <div class="content-grid__item" {{ block.shopify_attributes }}>
         <div class="logo-item">
-          {% if block.settings.url %}<a href="{{ block.settings.url }}" title="{{ block.settings.title }}">{% endif %}
+          {% if block.settings.url %}<a href="{{ block.settings.url }}">{% endif %}
           <img src="{{ block.settings.image | img_url: '250x250' }}" />
+          <div class="logo-item__caption">{{ block.settings.title }}</div>
           {% if block.settings.url %}</a>{% endif %}
         </div>
       </div>

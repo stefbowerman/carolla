@@ -1,0 +1,75 @@
+<div data-section-id="{{ section.id }}" data-section-type="subscription">
+
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h3 class="content-header">{{ section.settings.title }}</h3>
+    {% endif %}
+    <div style="max-width: 500px; margin: 0 auto;" data-subscription-slideup-form-content>
+      <form action="{{ settings.newsletter_form_action }}" method="post">
+        <div class="minimal-input-box">
+          <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="Email address" class="minimal-input-box__input" />
+          <button type="submit" class="minimal-input-box__submit">
+            {% include 'icon-search' %}
+            <span class="icon-fallback-text">{{ section.settings.button_text | default: "Subscribe" }}</span>
+          </button>
+        </div>              
+      </form>
+
+      {% capture success_message %}
+        <h4>
+          {% if section.settings.success_message != blank %}
+            {{ section.settings.success_message | escape | newline_to_br }}
+          {% else %}
+            Thank you for subscribing!
+          {% endif %}
+        </h4>
+      {% endcapture %}
+
+      {% capture fail_message %}
+        <h4>Please check your email and try again.</h4>
+      {% endcapture %}
+
+      <div class="subscription__form-message" data-subscription-form-message data-message-success="{{ success_message | strip | escape }}" data-message-fail="{{ fail_message | strip | escape }}"></div>
+
+    </div>  
+  </div>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Subscription",
+    "settings": [
+      {
+         "type": "header",
+         "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "placeholder_text",
+        "label": "Input placeholder text",
+        "default": "Enter your email"
+      },
+      {
+        "type": "textarea",
+        "id": "success_message",
+        "label": "Success Message",
+        "info": "Text displayed when someone signs up successfully.  Leave blank for a generic message."
+      }
+    ],
+    "presets": [
+      {
+        "category": "Misc",
+        "name": "Subscription",
+        "settings": {
+          "title": "Subscribe"
+        }
+      }
+    ]  
+  }
+{% endschema %}

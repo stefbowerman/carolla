@@ -48,8 +48,8 @@
     }
 
     .content-grid--4-col & {
-      @include flex-basis(percentage(1/4));
-      max-width: percentage(1/4);
+      @include flex-basis(percentage(1/2));
+      max-width: percentage(1/2);
     }
 
     .content-grid--5-col & {
@@ -91,6 +91,11 @@
   }
 
   @media (min-width: $screen-lg-min) {
+    .content-grid--4-col & {
+      @include flex-basis(percentage(1/4));
+      max-width: percentage(1/4);
+    }
+    
     .content-grid--5-col & {
       @include flex-basis(percentage(1/5));
       max-width: percentage(1/5);
