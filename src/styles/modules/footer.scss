@@ -54,8 +54,19 @@
   @extend .list-unstyled;
   font-size: $footer-menu-font-size;
 
-  li:not(:last-child) {
-    margin-bottom: 5px;
+  li {
+    display: block;
+    margin-bottom: $spacer;
+    text-align: center;
+
+    @media (min-width: $footer-bp-min) {
+      display: inline-block;
+
+      & + li {
+        margin-left: 10px;
+
+      }
+    }
   }
 
   a {
@@ -76,4 +87,9 @@
   .icon {
     width: $footer-social-icon-width;
   }
+}
+
+.footer__copyright {
+  text-align: center;
+  margin-top: $spacer;
 }

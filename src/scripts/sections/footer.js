@@ -26,24 +26,6 @@ theme.Footer = (function($) {
 
   Footer.prototype = $.extend({}, Footer.prototype, {
 
-    /**
-     * Theme Editor section events below
-     */
-    onSelect: function() {
-      console.log('['+this.name+'] - section:select');
-    },
-
-    onShow: function() {
-      console.log('['+this.name+'] - section:show');
-    },
-
-    onLoad: function() {
-      console.log('['+this.name+'] - section::load');
-    },
-
-    onUnload: function() {
-      console.log('['+this.name+'] - section::unload');
-    }
   });
 
   return Footer;

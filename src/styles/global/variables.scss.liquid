@@ -132,12 +132,12 @@ $table-border-color:            #ddd !default;
 
 $btn-font-weight:                $font-weight-bold !default;
 
-$btn-default-color:              $color-black !default;
-$btn-default-bg:                 $color-white !default;
-$btn-default-border:             $color-black !default;
-$btn-default-hover-color:        $color-black !default;
-$btn-default-hover-bg:           darken($color-white, 9%) !default;
-$btn-default-hover-border:       $color-black !default;
+$btn-default-color:              $color-white !default;
+$btn-default-bg:                 $color-black !default;
+$btn-default-border:             $color-white !default;
+$btn-default-hover-color:        $color-white !default;
+$btn-default-hover-bg:           lighten($color-black, 5%) !default;
+$btn-default-hover-border:       $color-white !default;
 
 $btn-primary-color:              $color-white !default;
 $btn-primary-bg:                 $color-primary !default;
@@ -444,8 +444,7 @@ $header-dropdown-menu-spacing:          25px; // Horizontal spacing between drop
 
 // #AJAX Cart
 $ajax-cart-width:                       400px;
-$ajax-cart-bg:                          $color-white;
-$ajax-cart-border-color:                darken($ajax-cart-bg, 5%);
+$ajax-cart-bg:                          $color-black;
 $ajax-cart-padding-vertical:            $grid-gutter-width;
 $ajax-cart-padding-horizontal:          $grid-gutter-width;
 
@@ -551,7 +550,7 @@ $arrow-icon-tip-skew:                   45deg;
 // #Slideshow
 $slideshow-dot-size:                    10px;
 $slideshow-dot-color:                   $color-white;
-$slideshow-dot-active-color:            red;
+$slideshow-dot-active-color:            $color-primary;
 
 // #Panel
 $panel-padding-vertical:                $grid-gutter-width/2;

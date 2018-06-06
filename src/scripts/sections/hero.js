@@ -40,7 +40,9 @@ theme.Hero = (function($) {
     }
 
     var settings = {
-      // Put your settings here
+      dots: true,
+      arrows: false,
+      autoplay: true
     };
 
     this.slideshow = new slate.models.Slideshow( $(selectors.slideshowWrapper, this.$container), settings);

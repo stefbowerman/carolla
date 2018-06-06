@@ -2,23 +2,17 @@
 // AJAX Cart
 // -------------------------
 
-// START - Styles for testing
-[data-ajax-cart-container] {
-  position: fixed;
-  top: 30px;
-  right: 30px;
-}
-// END - Styles for testing
-
 .ajax-cart-container {
   position: fixed;
   z-index: $z-index-ajax-cart;
   top: 0;
   right: 0;
+  bottom: 0;
   width: 100%;
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
   max-width: $ajax-cart-width;
-  background: $ajax-cart-bg;
-  border: 1px solid $ajax-cart-border-color;
   pointer-events: none;
   @include translateX(100%);
   @include transition(all $transition-duration-base $transition-timing-function-base);
@@ -31,7 +25,8 @@
 }
 
 .ajax-cart {
-  background: $ajax-cart-bg;
+  background-color: $ajax-cart-bg;
+  height: 100%;
 }
 
 .ajax-cart__header,

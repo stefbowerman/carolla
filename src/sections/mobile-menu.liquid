@@ -11,6 +11,25 @@
       </div>
       <div class="drawer__body">
         <div class="drawer__body-contents">
+
+          {% if section.settings.search_enabled %}
+            <div class="mobile-menu-block">
+              <form action="/search" method="get" role="search">
+                <div class="minimal-input-box">
+                  <label for="Search" class="label-hidden">
+                    {{ 'general.search.placeholder' | t }}
+                  </label>
+                  <input type="hidden" name="type" value="product,article" />
+                  <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" class="minimal-input-box__input"/>
+                  <button type="submit" class="minimal-input-box__submit">
+                    {% include 'icon-search' %}
+                    <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          {% endif %}
+
           {% comment %} Menus {% endcomment %}
             <div class="mobile-menu-block mobile-menu-block--primary">
               {% if section.settings.primary_linklist and linklists[section.settings.primary_linklist].links.size > 0 %}
@@ -41,22 +60,6 @@
                     </div>
                   </div>
                 {% endfor %}
-              {% endif %}
-
-              {% if section.settings.search_enabled %}
-                <form action="/search" method="get" role="search">
-                  <div class="minimal-input-box">
-                    <label for="Search" class="label-hidden">
-                      {{ 'general.search.placeholder' | t }}
-                    </label>
-                    <input type="hidden" name="type" value="product,article" />
-                    <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" class="minimal-input-box__input"/>
-                    <button type="submit" class="minimal-input-box__submit">
-                      {% include 'icon-search' %}
-                      <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
-                    </button>
-                  </div>
-                </form>
               {% endif %}
             </div>
           
