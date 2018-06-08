@@ -8,6 +8,7 @@
   {% include 'banner-panel',
               id: { string } - required
               content_alignment: { string } - optional
+              content_vertical_alignment: { string } - optional
               vertical_padding: { number } - optional
               vertical_padding_mobile: { number } - optional
               content_max_width: { number } - optional
@@ -76,7 +77,7 @@
 {% comment %} Only show the banner panel if there is text or a cta or a background image {% endcomment %}
 {% if has_title or has_text or has_cta_1 or has_cta_2 or background_image %}
 
-  <div id="banner__panel-{{ id }}" class="banner__panel{% if light_text %} banner__panel--light{% endif %}">
+  <div id="banner__panel-{{ id }}" class="banner__panel{% if light_text %} banner__panel--light{% endif %}{% if content_vertical_alignment != blank %} banner__panel--align-{{ content_vertical_alignment }}{% endif %}">
 
       <style type="text/css">
       {% if vertical_padding != blank %}

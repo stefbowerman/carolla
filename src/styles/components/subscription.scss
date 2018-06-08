@@ -1,0 +1,19 @@
+.subscription__form-message {
+  @include stretch-within();
+  @include display-flex;
+  @include align-items(center);
+  z-index: 1;
+  background: $body-bg;
+  opacity: 0;
+  pointer-events: none;
+  @include transition(opacity $transition-duration-slow $transition-timing-function-in-out-ui);
+
+  [data-section-type="subscription"] & {
+    @include justify-content(center);
+  }
+
+  .show-message & {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

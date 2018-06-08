@@ -6,6 +6,7 @@
         {% include 'banner-panel',
                     id: block.id,
                     content_alignment: block.settings.content_alignment,
+                    content_vertical_alignment: block.settings.content_vertical_alignment,
                     content_max_width: block.settings.content_max_width,
                     background_image: block.settings.background_base,
                     background_image_vertical_alignment: block.settings.background_image_vertical_alignment,
@@ -82,11 +83,22 @@
           {
             "type":      "select",
             "id":        "content_alignment",
-            "label":     "Content Alignment",
+            "label":     "Content Horizontal Alignment",
             "options": [
               { "value": "left", "label": "Left" },
               { "value": "center", "label": "Center" },
               { "value": "right", "label": "Right" }
+            ],
+            "default":   "center"
+          },
+          {
+            "type":      "select",
+            "id":        "content_vertical_alignment",
+            "label":     "Content Vertical Alignment",
+            "options": [
+              { "value": "center", "label": "Center" },
+              { "value": "top", "label": "Top" },
+              { "value": "bottom", "label": "Bottom" }
             ],
             "default":   "center"
           },

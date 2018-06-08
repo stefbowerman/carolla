@@ -31,6 +31,8 @@
   padding-top:    $banner-panel-padding-vertical;
   padding-bottom: $banner-panel-padding-vertical;
 
+  min-height: $banner-panel-min-height;
+
   @media (min-width: $screen-md-min) {
     @include flex(1 1 0); // Make all panels equal width
   }
@@ -44,15 +46,21 @@
     }
   }
 
+  &.banner__panel--align-top {
+    @include align-items(flex-start);
+  }
+
+  &.banner__panel--align-bottom {
+    @include align-items(flex-end);
+  }
+
   // Modifier classes to make tall + short banners
   .banner--small > & {
-    padding-top:    $banner-panel-padding-vertical-small;
-    padding-bottom: $banner-panel-padding-vertical-small;
+    min-height: $banner-panel-min-height-small;
   }
 
   .banner--large > & {
-    padding-top:    $banner-panel-padding-vertical-large;
-    padding-bottom: $banner-panel-padding-vertical-large;
+    min-height: $banner-panel-min-height-large;
   }
 }
 
@@ -125,5 +133,9 @@
 .banner {
   .cta-group {
     margin-top: 45px;
+
+    &:only-child {
+      margin-top: 0;
+    }
   }
 }
