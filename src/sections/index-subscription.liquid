@@ -4,12 +4,12 @@
     {% if section.settings.title != blank %}
       <h3 class="content-header">{{ section.settings.title }}</h3>
     {% endif %}
-    <div style="max-width: 500px; margin: 0 auto;" data-subscription-slideup-form-content>
+    <div style="max-width: 500px; margin: 0 auto; position: relative;" data-subscription-form-content>
       <form action="{{ settings.newsletter_form_action }}" method="post">
-        <div class="minimal-input-box">
-          <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="Email address" class="minimal-input-box__input" />
+        <div class="minimal-input-box minimal-input-box--large">
+          <input type="email" name="EMAIL" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="Email address" class="minimal-input-box__input" />
           <button type="submit" class="minimal-input-box__submit">
-            {% include 'icon-search' %}
+            {% include 'icon-arrow-right' %}
             <span class="icon-fallback-text">{{ section.settings.button_text | default: "Subscribe" }}</span>
           </button>
         </div>              

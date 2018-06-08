@@ -41,10 +41,11 @@ theme.Subscription = (function($, slate) {
     this.$formMessage = $(selectors.formMessage, this.$container);
     this.$form = this.$formContent.find('form');
     
-    // var ajaxForm = new slate.AjaxMailChimpForm(this.$form, {
-    //   onSubmitFail: this.onSubmitFail.bind(this),
-    //   onSubscribeSuccess: this.onSubscribeSuccess.bind(this)
-    // });
+    var ajaxForm = new slate.AjaxMailChimpForm(this.$form, {
+      onSubmitFail: this.onSubmitFail.bind(this),
+      onSubscribeSuccess: this.onSubscribeSuccess.bind(this),
+      onSubscribeFail: this.onSubscribeSuccess.bind(this)
+    });
 
   }
 
@@ -61,7 +62,8 @@ theme.Subscription = (function($, slate) {
 
     onSubscribeSuccess: function() {
       this.$formMessage.html( this.$formMessage.data('message-success') );
-      this.$formContent.addClass(classes.showMessage);   
+      this.$formContent.addClass(classes.showMessage);
+      setTimeout(this.reset.bind(this), 5000); 
     },
 
     onSubmitFail: function() {
