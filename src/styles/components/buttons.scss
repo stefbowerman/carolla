@@ -107,7 +107,6 @@ a.btn {
   &:hover,
   &:focus {
     color: $link-hover-color;
-    text-decoration: $link-hover-decoration;
     background-color: transparent;
   }
   &[disabled],
@@ -115,7 +114,6 @@ a.btn {
     &:hover,
     &:focus {
       color: $btn-link-disabled-color;
-      text-decoration: none;
     }
   }
 }
@@ -147,7 +145,7 @@ a.btn {
 
 // Vertically space out multiple block buttons
 .btn-block + .btn-block {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 // Specificity overrides

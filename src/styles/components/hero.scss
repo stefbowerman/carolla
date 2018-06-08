@@ -7,10 +7,12 @@
   // @include display-flex;
   // @include flex-direction(column);
   height: auto;
+  height: 80vh;
 
   @media (min-width: $screen-sm-min) {
-    min-height: 500px; // something small
-    // height: 75vh; // needs to have a height set on it in order for the 3up layout to work
+    min-height: 400px; // something small
+    height: 600px;
+    height: 60vh;
     // @include flex-direction(row);
   }
 
@@ -38,7 +40,12 @@
   position: relative;
   @include display-flex;
   @include align-items(center);
+  padding: 60px 0;
   // @include flex(1);
+
+  @media (min-width: $screen-md-min) {
+    padding: 100px 0;
+  }
 
   // 2 blocks go side by side
   // .hero--block-count-2 & {

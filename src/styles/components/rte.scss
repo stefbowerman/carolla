@@ -28,6 +28,15 @@
       }
     }
   }
+
+  a {
+    border-bottom: 1px solid $color-primary;
+
+    &:hover,
+    &:focus {
+      color: $color-primary;
+    }
+  }
 }
 
 .text-center.rte,

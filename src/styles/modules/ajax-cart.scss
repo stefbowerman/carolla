@@ -13,6 +13,7 @@
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
   max-width: $ajax-cart-width;
+  border-left: 1px solid lighten($body-bg, 25%);
   pointer-events: none;
   @include translateX(100%);
   @include transition(all $transition-duration-base $transition-timing-function-base);
@@ -68,7 +69,7 @@
 
 .ajax-cart__item {
   @include clearfix;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 
   &:last-child {
     margin-bottom: 0;
@@ -91,12 +92,14 @@
 }
 
 .ajax-cart__item-header {
-
+  margin-bottom: 10px;
 }
 
 .ajax-cart__item-price {
   float: right;
   padding-left: 5px;
+  padding-bottom: 20px;
+  font-weight: normal;
 }
 
 .ajax-cart__item-title {
@@ -105,6 +108,11 @@
 
 .ajax-cart__item-options {
   @include list-unstyled;
+  font-size: $font-size-small;
+
+  li:not(last-child) {
+    margin-bottom: 2px;
+  }
 }
 
 .ajax-cart__item-qty {
@@ -112,7 +120,7 @@
 }
 
 .ajax-cart__item-remove {
-
+  font-size: $font-size-xsmall;
 }
 
 .ajax-cart__footer {

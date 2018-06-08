@@ -45,9 +45,10 @@
       </div>
       <div class="col-md-6 col-lg-5">
         <h1>{{ product.title }}</h1>
-        <p>{{ product.vendor }}</p>
 
-        {% include 'product-detail-price', product: product, current_variant: current_variant %}
+        <h4>
+          {% include 'product-detail-price', product: product, current_variant: current_variant %}
+        </h4>
 
         <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
           <meta itemprop="priceCurrency" content="{{ shop.currency }}">
@@ -62,9 +63,9 @@
                   {% assign option_name_downcase = option.name | downcase %}
 
                   {% capture option_alt_ui %}
-                    {% if option_name_downcase == "color" %}
+{% comment %}                    {% if option_name_downcase == "color" %}
                       {% include 'product-dots-color', product: product, selected_color: option.selected_value %}
-                    {% endif %}
+                    {% endif %}{% endcomment %}
                   {% endcapture %}
 
                   <div class="selector-wrapper form-group js">
@@ -135,7 +136,7 @@
               </select>
 
               <div class="selector-wrapper form-group" style="min-width: 0;">
-                <label for="Quantity">{{ 'products.product.quantity' | t }}:</label>
+                <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
                 <div style="max-width: 80px;">
                   <select id="Quantity" name="quantity" class="form-control" {% if current_variant.available == false %}disabled="true"{% endif %} data-product-quantity-select>
                     {% for i in (1..5) %}
@@ -145,6 +146,8 @@
                 </div>
               </div>
 
+              <br />
+              
               <button
                 type="submit"
                 name="add"
@@ -164,7 +167,7 @@
 
         </div>
 
-        <div class="rte">
+        <div class="rte" style="margin-top: 30px;">
           {{ product.description }}
         </div>
 

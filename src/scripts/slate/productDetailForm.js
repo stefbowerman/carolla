@@ -207,7 +207,7 @@ slate.ProductDetailForm = (function($, Modernizr, slate) {
           dots: false,
           swipe: Modernizr.touchevents,
           arrows: !Modernizr.touchevents,
-          asNavFor: '#' + $thumbnail.attr('id'),
+          // asNavFor: '#' + $thumbnail.attr('id'),
           prevArrow: '<div class="slick-arrow slick-arrow--prev"><span class="arrow arrow--left"><span class="arrow__icon"></span></span></div>',
           nextArrow: '<div class="slick-arrow slick-arrow--next"><span class="arrow arrow--right"><span class="arrow__icon"></span></span></div>',
           initialSlide: initialSlide,
@@ -215,27 +215,28 @@ slate.ProductDetailForm = (function($, Modernizr, slate) {
           draggable: true
         });
 
+        $(selectors.productGalleryThumbnailSlide).css('cursor', 'pointer');
         $thumbnail.on('click', selectors.productGalleryThumbnailSlide, function() {
-          $slideshow.slick('slickGoTo', $(this).data('slick-index'));
+          $slideshow.slick('slickGoTo', $(this).index()); // $(this).data('slick-index'));
         });
 
-        $thumbnail.slick({
-          speed: 600,
-          slidesToShow: $thumbnail.find(selectors.productGalleryThumbnailSlide).length == 4 ? 3 : 4, // Slick has trouble when slidesToShow = slide number
-          slidestoScroll: 1,
-          arrows: false,
-          asNavFor: '#' + $slideshow.attr('id'),
-          initialSlide: initialSlide,
-          accessibility: false,
-          draggable: false
-        });        
+        // $thumbnail.slick({
+        //   speed: 600,
+        //   slidesToShow: $thumbnail.find(selectors.productGalleryThumbnailSlide).length == 4 ? 3 : 4, // Slick has trouble when slidesToShow = slide number
+        //   slidestoScroll: 1,
+        //   arrows: false,
+        //   asNavFor: '#' + $slideshow.attr('id'),
+        //   initialSlide: initialSlide,
+        //   accessibility: false,
+        //   draggable: false
+        // });        
       });
 
       // Because slick can get weird on initialization, make sure we call `refresh` on any visible galleries
       $galleries.not('.hide').each(function() {
         var $variantGallery = $(this);
         $variantGallery.find(selectors.productGallerySlideshow).slick('getSlick').refresh();
-        $variantGallery.find(selectors.productGalleryThumbnail).slick('getSlick').refresh();
+        // $variantGallery.find(selectors.productGalleryThumbnail).slick('getSlick').refresh();
       });
     },
 

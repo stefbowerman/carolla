@@ -138,10 +138,15 @@ window.theme = window.theme || {};
       $searchOverlay.on('shown.overlay', function() {
         // Due to CSS animations, this timeout is requirec
         setTimeout(function(){
-          $searchOverlayfind('input[type="search"]').focus();
+          $searchOverlay.find('input[type="search"]').focus();
         }, 10);
       });
     }
+
+    // Open external links in a new window
+    $(document.links).filter(function() {
+      return this.hostname != window.location.hostname;
+    }).attr('target', '_blank');
 
   });
 

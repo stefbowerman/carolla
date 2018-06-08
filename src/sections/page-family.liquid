@@ -1,0 +1,55 @@
+<div class="layout-content-wrapper flush-top" data-section-id="{{ section.id }}" data-section-type="family-page">
+
+  <div class="container">
+    {% include 'page-header', title: page.title %}
+  </div>
+
+  <div class="container">
+    <div class="content-grid content-grid--centered content-grid--5-col">
+      {% for block in section.blocks %}
+        <div class="content-grid__item" {{ block.shopify_attributes }}>
+          <div class="logo-item">
+            {% if block.settings.url %}<a href="{{ block.settings.url }}">{% endif %}
+            <img src="{{ block.settings.image | img_url: '250x250' }}" />
+            <div class="logo-item__caption logo-item__caption--show">{{ block.settings.title }}</div>
+            {% if block.settings.url %}</a>{% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Page - Family",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "family_member",
+        "name": "Family Member",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Link",
+            "info": "Optional"
+          }
+        ]
+      }
+    ]   
+  }
+{% endschema %}

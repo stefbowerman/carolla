@@ -29,6 +29,8 @@
 }
 
 .article-card__info-meta {
-
+  margin-top: -#{$spacer / 2};
+  margin-bottom: $spacer;
+  font-size: $font-size-xsmall;
 }
 

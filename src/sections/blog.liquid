@@ -42,16 +42,24 @@
 
     {% paginate blog.articles by 16 %}
 
-     {% include 'page-hero',
-                id: section.id,
-                background_image: hero_background_image,
-                title: hero_title,
-                toptitle: hero_toptitle,
-                subtitle: hero_subtitle,
-                title_link: hero_title_link,
-                content_alignment: center,
-                light_text: hero_light_text
-       %}
+      {% if hero_background_image %}
+
+       {% include 'page-hero',
+                  id: section.id,
+                  background_image: hero_background_image,
+                  title: hero_title,
+                  toptitle: hero_toptitle,
+                  subtitle: hero_subtitle,
+                  title_link: hero_title_link,
+                  content_alignment: center,
+                  light_text: hero_light_text
+         %}
+
+      {% else %}
+
+        {% include 'page-header', title: hero_title, subtitle: hero_subtitle %}
+
+      {% endif %}
 
       <div class="container">
 
