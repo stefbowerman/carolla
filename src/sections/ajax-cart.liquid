@@ -17,10 +17,10 @@
             <li class="ajax-cart__item" data-id="{{ variant_id }}" data-qty="{{ quantity }}" data-ajax-item>
               <img src="{{ image }}" class="ajax-cart__item-image">
               <div class="ajax-cart__item-info">
-                <h5 class="ajax-cart__item-header">
+                <h6 class="ajax-cart__item-header">
                   <span class="ajax-cart__item-price">{{ price }}</span>
                   <a href="{{ url }}" class="ajax-cart__item-title">{{ product_title }}</a>
-                </h5>
+                </h6>
                 <ul class="ajax-cart__item-options">
                   {{#if variant_options}}
                     {{#each variant_options}}
@@ -31,11 +31,7 @@
                   {{/if}}
                   <li><span class="ajax-cart__item-qty">Quantity: {{ quantity }}</span></li>
                   <li>
-                    <a href="#" class="ajax-cart__item-remove" data-ajax-cart-item-remove>Remove</a>
-                  </li>
-                  <li>
-                    <a href="#" data-ajax-cart-item-increment>Increment</a>
-                    <a href="#" data-ajax-cart-item-decrement>Decrement</a>
+                    <a href="#" class="ajax-cart__item-remove" data-ajax-cart-item-remove>&times; Remove</a>
                   </li>
                 </ul>
               </div>
@@ -63,13 +59,6 @@
             <a href="/cart" class="btn btn-block btn-primary">{% endraw %}{{ 'cart.general.view' | t }}{% raw %}</a>
             <button type="submit" name="checkout" class="btn btn-block">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</button>
           </div>
-          {% endraw %}
-          {% if section.settings.footer_text != blank %}
-            <div class="ajax-cart__footer-row u-ta-center">
-              {{ section.settings.footer_text }}
-            </div>
-          {% endif %}
-          {% raw %}
         </div>
       {{/if}}
     </form>
@@ -87,12 +76,6 @@
         "type": "richtext",
         "label": "Empty Text",
         "default": "<p>Your bag is empty</p>"
-      },
-      {
-        "id": "footer_text",
-        "type": "richtext",
-        "label": "Footer Text",
-        "default": "<p>Promotional Message Here</p>"
       }
     ]
   }

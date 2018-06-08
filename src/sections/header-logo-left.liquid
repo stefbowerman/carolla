@@ -1,60 +1,3 @@
-{% assign menu_html          = '' %}
-{% assign MAX_DROPDOWN_MENUS = 2 %}
-{% assign MAX_DROPDOWN_CTAS  = 4 %}
-
-{% for block in section.blocks %}
-  {% if block.type == "nav_item" %}
-
-    {% comment %} Generate the dropdown contents and then we can check if it's blank {% endcomment %}
-    {% capture dropdown_menu_html %}
-      {% if block.settings.linklist_1 != blank or block.settings.linklist_2 != blank %}
-        {% for i in (1..MAX_DROPDOWN_MENUS) %}
-          {% assign linklist_setting_handle = 'linklist_' | append: i %}
-          {% include 'header-dropdown-menu', ll_handle: block.settings[linklist_setting_handle] %}
-        {% endfor %}
-      {% endif %}
-    {% endcapture %}
-
-    {% capture dropdown_cta_html %}
-      {% for i in (1..MAX_DROPDOWN_CTAS) %}
-        {% assign cta_link_setting_handle  = "cta_" | append: i | append: "_url" %}
-        {% assign cta_text_setting_handle  = "cta_" | append: i | append: "_text" %}
-        {% assign cta_image_setting_handle = "cta_" | append: i | append: "_image" %}
-        {% include 'header-dropdown-cta',
-                    cta_link: block.settings[cta_link_setting_handle],
-                    cta_image: block.settings[cta_image_setting_handle],
-                    cta_text: block.settings[cta_text_setting_handle]
-        %}
-      {% endfor %}
-    {% endcapture %}
-    {% comment %} END Generate the dropdown contents {% endcomment %}
-
-    {% assign has_dropdown = false %}
-    {% if dropdown_menu_html != blank or dropdown_cta_html != blank %}
-      {% assign has_dropdown = true %}
-    {% endif %}    
-
-    {% capture menu_item_html %}
-      {% include 'header-menu-item',
-                 block_id: block.id,
-                 attributes: block.shopify_attributes,
-                 url: block.settings.url,
-                 title: block.settings.title,
-                 dropdown_menu_html: dropdown_menu_html,
-                 dropdown_cta_html: dropdown_cta_html
-      %}
-    {% endcapture %}
-
-    {% assign menu_html = menu_html | append: menu_item_html %}
-
-  {% endif %}
-{% endfor %}
-
-{% if menu_html != blank %}
-  {% assign menu_html = menu_html | prepend: '<ul class="header-nav__menu">' %}
-  {% assign menu_html = menu_html | append: '</ul>' %}
-{% endif %}
-
 {% capture social_list_items %}
   {%- assign social_accounts = 'Facebook, Instagram, Twitter, Youtube' | split: ', ' -%}
   {% for social in social_accounts %}
@@ -86,7 +29,19 @@
       {% comment %} Main Menu {% endcomment %}
       <div class="header-nav header-nav--center header-nav--hide-on-mobile">
 
-        {{ menu_html }}
+        {% if section.settings.menu != blank %}
+          {% assign menu = linklists[section.settings.menu] %}
+
+          {% if menu and menu.links.size > 0 %}
+            <ul class="header-nav__menu">
+              {% for link in menu.links %}
+                <li class="header-nav__menu-item">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endif %}
 
       </div>
 
@@ -94,12 +49,12 @@
       <div class="header-nav header-nav--right header-nav--hide-on-mobile">
 
         {% if social_list_items %}
-          <ul class="header-nav__menu">
+          <ul class="header-nav__menu header-nav__menu--social">
             {{ social_list_items }}
           </ul>
         {% endif %}
         
-        {% include 'header-menu-user' %}
+        {% include 'header-menu-user', search_enabled: section.settings.search_enabled %}
 
       </div>
 
@@ -119,6 +74,21 @@
   {
     "name": "Header",
     "settings": [
+      {
+        "type": "checkbox",
+        "id": "search_enabled",
+        "label": "Search Enabled",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Menu"
+      },
       {
         "type": "header",
         "content": "Social"
@@ -142,125 +112,6 @@
         "type": "checkbox",
         "id": "social_youtube_enabled",
         "label": "Youtube"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "nav_item",
-        "name": "Navigation Item",
-        "settings": [
-          {
-             "type": "header",
-             "content": "Info",
-             "info": "A title and a link are required for each navigation item.  If a menu or CTA is added, the nav item will display a dropdown below it on hover."
-          },
-          {
-            "type": "text",
-            "id": "title",
-            "label": "Title"
-          },
-          {
-            "type": "url",
-            "id": "url",
-            "label": "Link"
-          },
-          {
-             "type": "header",
-             "content": "Menus",
-             "info": "Each navigation item dropdown supports up to 2 menus."
-          },
-          {
-            "type": "link_list",
-            "id": "linklist_1",
-            "label": "Menu 1"
-          },
-          {
-            "type": "link_list",
-            "id": "linklist_2",
-            "label": "Menu 2"
-          },
-          {
-             "type": "header",
-             "content": "CTAs",
-             "info": "Each navigation item dropdown supports up to 4 CTA blocks.  A link and text are required, the image is optional."
-          },
-          {
-            "type": "header",
-            "content": "CTA 1"
-          },
-          {
-            "type": "text",
-            "id": "cta_1_text",
-            "label": "Text"
-          },
-          {
-            "type": "url",
-            "id": "cta_1_url",
-            "label": "Link"
-          },
-          {
-            "type": "image_picker",
-            "id": "cta_1_image",
-            "label": "Image"
-          },
-          {
-            "type": "header",
-            "content": "CTA 2"
-          },
-          {
-            "type": "text",
-            "id": "cta_2_text",
-            "label": "Text"
-          },
-          {
-            "type": "url",
-            "id": "cta_2_url",
-            "label": "Link"
-          },
-          {
-            "type": "image_picker",
-            "id": "cta_2_image",
-            "label": "Image"
-          },
-          {
-            "type": "header",
-            "content": "CTA 3"
-          },
-          {
-            "type": "text",
-            "id": "cta_3_text",
-            "label": "Text"
-          },
-          {
-            "type": "url",
-            "id": "cta_3_url",
-            "label": "Link"
-          },
-          {
-            "type": "image_picker",
-            "id": "cta_3_image",
-            "label": "Image"
-          },
-          {
-            "type": "header",
-            "content": "CTA 4"
-          },
-          {
-            "type": "text",
-            "id": "cta_4_text",
-            "label": "Text"
-          },
-          {
-            "type": "url",
-            "id": "cta_4_url",
-            "label": "Link"
-          },
-          {
-            "type": "image_picker",
-            "id": "cta_4_image",
-            "label": "Image"
-          }
-        ]
       }
     ]
   }

@@ -42,7 +42,7 @@
 .frame--250x300 {
   width: 250px;
   max-width: 100%;
-  @include aspect-ratio(250, 300);
+  @include aspect-ratio(300, 250);
 }
 
 // Responsive frame sizing

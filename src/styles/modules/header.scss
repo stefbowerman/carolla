@@ -154,9 +154,11 @@
     margin-left: 50px;
   }
 
-  svg {
-    height: 16px;
-    width: 16px;
+  &.header-nav__menu--social {
+    svg {
+      height: 16px;
+      width: 16px;
+    }
   }
 }
 
@@ -170,6 +172,10 @@
 
   &:last-child {
     margin-right: 0;
+  }
+
+  .header-nav__menu--social & {
+    margin: 0 3px;
   }
 
   > a {
@@ -190,8 +196,17 @@
 
 .header-cart__badge-count {
   position: absolute;
-  left: 50%;
-  @include translateX(-50%);
+  right: -8px;
+  top: -5px;
+  height: 17px;
+  width: 17px;
+  background: $color-primary;
+  color: $color-white;
+  text-align: center;
+  line-height: 17px;
+  border-radius: 50%;
+  font-size: $font-size-xsmall;
+  font-weight: $font-weight-bold;
   opacity: 0;
 
   .has-items & {

@@ -51,7 +51,7 @@
 
           {% comment %} Put the social stuff in a capture block because we use it twice in the footer {% endcomment %}
           {% capture social_list_items %}
-            {%- assign social_accounts = 'Facebook, Instagram, Twitter, Pinterest, Snapchat' | split: ', ' -%}
+            {%- assign social_accounts = 'Facebook, Instagram, Twitter, YouTube, Pinterest, Snapchat' | split: ', ' -%}
             {% for social in social_accounts %}
               {% assign social_handle = social | handleize %}
               {% capture social_enabled_handle %}social_{{ social_handle }}_enabled{% endcapture %}
@@ -106,6 +106,11 @@
         "type": "checkbox",
         "id": "social_twitter_enabled",
         "label": "Twitter"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_youtube_enabled",
+        "label": "YouTube"
       },
       {
         "type": "checkbox",

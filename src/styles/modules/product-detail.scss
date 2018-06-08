@@ -2,6 +2,12 @@
 // Product Detail
 // --------------------------------------------------------
 
+.selector-wrapper {
+  @media (min-width: $screen-md-min) {
+    max-width: 350px;
+  }
+}
+
 
 // Slideshow / Zoom
 // --------------------------------------------------------
@@ -24,6 +30,8 @@
   max-width: 500px;
   list-style: none;
   padding: 0;
+
+  margin-bottom: $spacer;
 
   &.slick-initialized { padding: 0; } // normalize the <ul>
 
@@ -103,4 +111,15 @@
     cursor: -webkit-zoom-out;
     border: 1px solid #CCC;
   }
+}
+
+.product-gallery__thumbnails {
+  margin-bottom: $spacer;
+  text-align: center;
+}
+
+.product-gallery__thumbnails-slide {
+  display: inline-block;
+  margin: $spacer;
+  margin-top: 0;
 }

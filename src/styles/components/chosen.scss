@@ -9,6 +9,8 @@
     box-shadow: none;
     border-color: $input-border-focus;
     border-top: 1px solid $input-border-focus;
+    color: $input-color;
+    background-color: $input-bg;
     clip: auto;
     opacity: 0;
     pointer-events: none;
@@ -36,8 +38,8 @@
       }
 
       &.highlighted {
-        background-color: $color-black;
-        color: $color-white;
+        background-color: $color-white;
+        color: $color-black;
         background-image: none;
       }
     }
@@ -58,7 +60,7 @@
       width: 30px;
 
       b {
-        opacity: 0.3;
+        opacity: 1;
         @include transition(all $transition-duration-fast $transition-timing-function-base);
       }
     }
