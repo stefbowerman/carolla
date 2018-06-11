@@ -13,32 +13,29 @@
   {% assign number_of_comments = article.comments_count | plus: 1 %}
 {% endif %}
 
-{% assign has_image = false %}
-{% if article.image %}
-  {% assign has_image = true %}
-{% endif %}
+{% comment %} Shopify doesn't have a way to access article.blog directly so we have to parse out the url {% endcomment %}
+{% assign blog_handle = article.url | replace: 'blogs/', '' | replace: '/', ' ' | split: ' ' | first %}
 
 {% capture article_date %}{{ article.published_at | time_tag: format: 'month_day' }}{% endcapture %}
-{% capture subtitle %}{{ 'blogs.article.author_on_date_html' | t: author: article.author, date: article_date }}{% endcapture %}
+{% capture subtitle %}
+  {% unless blog_handle contains 'event' %}
+    {{ 'blogs.article.author_on_date_html' | t: author: article.author, date: article_date }}
+  {% endunless %}
+{% endcapture %}
 
-<div class="layout-content-wrapper flush-top">
+<div class="layout-content-wrapper">
   <div class="container">
 
     <article role="article" itemscope itemtype="http://schema.org/Article">
 
-      {% include 'page-hero',
-                  id: article.id,
-                  background_image: article.image,
-                  light_text: has_image,
-                  title: article.title,
-                  subtitle: subtitle
-      %}    
+      {% include 'page-header', title: article.title, subtitle: subtitle %}
 
       <div class="row">
-        <div class="col-lg-10 col-lg-offset-1 col-xl-8 col-xs-offset-2">
+        <div class="col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
 
           {% if settings.social_sharing_blog %}
             {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+            <br />
           {% endif %}
 
           {% if article.tags.size > 0 %}

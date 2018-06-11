@@ -1,0 +1,75 @@
+{% comment %} assign defaults {% endcomment %}
+{% assign hero_title = blog.title %}
+
+{% if section.settings.title != blank %}
+  {% assign hero_title = section.settings.title %}
+{% endif %}
+
+<div class="layout-content-wrapper">
+
+  <section data-section-id="{{ section.id }}" data-section-type="blog">
+
+    {% paginate blog.articles by 200 %}
+
+      {% include 'page-header', title: hero_title %}
+
+      <div class="container">
+
+        <div>
+          {% for article in blog.articles %}
+            <div class="blog-list__article">
+              <div class="blog-list__article-title">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </div>
+              {% if article.excerpt != blank %}
+                <div class="blog-list__article-excerpt">
+                  {{ article.excerpt }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if paginate.next.is_link %}
+          {% comment %} See scripts/sections/blog.js {% endcomment %}
+          <div class="u-ta-center" style="padding: 10px 0" data-pagination>
+            <a href="{{ paginate.next.url }}" data-next-page>Load More</a>
+          </div>
+        {% endif %}
+      </div>
+
+    {% endpaginate %}
+
+  </section>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Blog - List View",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Page Hero",
+        "info": "Used as the fallback hero if a blog-specific one is not selected.  See 'Add blog hero' below."
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "info": "Title of the selected blog will be used if blank"
+      },
+      {
+        "type": "checkbox",
+        "id" : "content_light_text",
+        "label": "Light Text",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_background_image",
+        "label": "Image"
+      }
+    ]
+  }
+{% endschema %}
