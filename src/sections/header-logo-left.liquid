@@ -1,3 +1,47 @@
+{% assign menu_html = '' %}
+
+{% if section.settings.menu != blank %}
+  {% assign menu = linklists[section.settings.menu] %}
+
+  {% if menu and menu.links.size > 0 %}
+    {% for link in menu.links %}
+
+    {% comment %} START Generate the dropdown contents {% endcomment %}
+    {% capture dropdown_html %}
+      {% if link.links.size > 0 %}
+        <ul class="header-dropdown__menu">
+          {% for sublink in link.links %}
+            <li>
+              <a href="{{ sublink.url }}">{{ sublink.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endcapture %}
+    {% comment %} END Generate the dropdown contents {% endcomment %}
+
+      {% capture menu_item_html %}
+        {% assign uniq_id = section.id | append: '-' | append: forloop.index %}
+        {% include 'header-menu-item',
+                   block_id: uniq_id,
+                   url: link.url,
+                   title: link.title,
+                   dropdown_contents: dropdown_html
+        %}
+      {% endcapture %}
+
+      {% assign menu_html = menu_html | append: menu_item_html %}
+    {% endfor %}
+  {% endif %}
+
+
+  {% if menu_html != blank %}
+    {% assign menu_html = menu_html | prepend: '<ul class="header-nav__menu">' %}
+    {% assign menu_html = menu_html | append: '</ul>' %}
+  {% endif %}
+
+{% endif %}
+
 {% capture social_list_items %}
   {%- assign social_accounts = 'Facebook, Instagram, Twitter, Youtube' | split: ', ' -%}
   {% for social in social_accounts %}
@@ -29,19 +73,7 @@
       {% comment %} Main Menu {% endcomment %}
       <div class="header-nav header-nav--center header-nav--hide-on-mobile">
 
-        {% if section.settings.menu != blank %}
-          {% assign menu = linklists[section.settings.menu] %}
-
-          {% if menu and menu.links.size > 0 %}
-            <ul class="header-nav__menu">
-              {% for link in menu.links %}
-                <li class="header-nav__menu-item">
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        {% endif %}
+        {{ menu_html }}
 
       </div>
 

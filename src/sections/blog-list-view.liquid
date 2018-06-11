@@ -14,28 +14,18 @@
       {% include 'page-header', title: hero_title %}
 
       <div class="container">
-
-        <div>
-          {% for article in blog.articles %}
-            <div class="blog-list__article">
-              <div class="blog-list__article-title">
-                <a href="{{ article.url }}">{{ article.title }}</a>
-              </div>
-              {% if article.excerpt != blank %}
-                <div class="blog-list__article-excerpt">
-                  {{ article.excerpt }}
-                </div>
-              {% endif %}
+        {% for article in blog.articles %}
+          <div class="blog-list__article">
+            <div class="blog-list__article-title">
+              <a href="{{ article.url }}">{{ article.title }}</a>
             </div>
-          {% endfor %}
-        </div>
-
-        {% if paginate.next.is_link %}
-          {% comment %} See scripts/sections/blog.js {% endcomment %}
-          <div class="u-ta-center" style="padding: 10px 0" data-pagination>
-            <a href="{{ paginate.next.url }}" data-next-page>Load More</a>
+            {% if article.excerpt != blank %}
+              <div class="blog-list__article-excerpt">
+                {{ article.excerpt }}
+              </div>
+            {% endif %}
           </div>
-        {% endif %}
+        {% endfor %}
       </div>
 
     {% endpaginate %}

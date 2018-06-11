@@ -54,9 +54,6 @@
 
       this.dropdowns.push(dd);
     },    
-    getDropdownByBlockId: function(id) {
-      return slate.utils.findInstance(this.dropdowns, 'blockId', id);
-    },
     onTriggerMouseEnter: function(dd, e) {
       if(e.pointerType != "touch") {
         this.stopCloseTimeout();

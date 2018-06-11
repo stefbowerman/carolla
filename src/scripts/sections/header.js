@@ -12,7 +12,7 @@ theme.Header = (function($) {
 
   var selectors = {
     header: '[data-header]',
-    dropdownTrigger: '[data-dropdown-trigger][data-block]',
+    dropdownTrigger: '[data-dropdown-trigger]',
   };
 
   var classes = {
@@ -80,28 +80,7 @@ theme.Header = (function($) {
     onMouseLeave: function() {
       this.dropdownManager.closeAllDropdowns();
     },    
-
-    /**
-     * Theme Editor section events below
-     */
-
-    onBlockSelect: function(e) {
-      var dropdown = this.dropdownManager.getDropdownByBlockId( e.detail.blockId );
-
-      // Bypass dropdown manager since we're inside the theme editor
-      if(dropdown) {
-        dropdown.forceOpen();
-      }
-    },
-
-    onBlockDeselect: function(e) {
-      var dropdown = this.dropdownManager.getDropdownByBlockId( e.detail.blockId );
-
-      // Bypass dropdown manager since we're inside the theme editor
-      if(dropdown) {
-        dropdown.forceClose();
-      }
-    }    
+   
   });
 
   return Header;
