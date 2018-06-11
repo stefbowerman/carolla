@@ -9,22 +9,23 @@
 
   <section data-section-id="{{ section.id }}" data-section-type="blog">
 
-    {% paginate blog.articles by 16 %}
+    {% paginate blog.articles by 200 %}
 
       {% include 'page-header', title: hero_title %}
 
       <div class="container">
 
-        {% comment %}
-
-        Article Previews
-        ====================
-        {% endcomment %}
-
-        <div class="content-grid content-grid--3-col">
+        <div>
           {% for article in blog.articles %}
-            <div class="content-grid__item">
-              {% include 'article-card', article: article, show_author: false, show_tags: false %}
+            <div class="blog-list__article">
+              <div class="blog-list__article-title">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </div>
+              {% if article.excerpt != blank %}
+                <div class="blog-list__article-excerpt">
+                  {{ article.excerpt }}
+                </div>
+              {% endif %}
             </div>
           {% endfor %}
         </div>
@@ -45,7 +46,7 @@
 
 {% schema %}
   {
-    "name": "Blog",
+    "name": "Blog - List View",
     "settings": [
       {
         "type": "header",
@@ -57,6 +58,17 @@
         "id": "title",
         "label": "Title",
         "info": "Title of the selected blog will be used if blank"
+      },
+      {
+        "type": "checkbox",
+        "id" : "content_light_text",
+        "label": "Light Text",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_background_image",
+        "label": "Image"
       }
     ]
   }

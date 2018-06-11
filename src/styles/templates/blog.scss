@@ -1,0 +1,57 @@
+// -------------------------
+// Blog Pages
+// -------------------------
+
+.blog-list__article {
+  @include display-flex;
+  @include justify-content(space-between);
+  @include align-items(center);
+  @include flex-direction(column);
+
+  border-bottom: 1px solid mix($color-white, $color-black);
+
+  @media (min-width: $screen-md-min) {
+    @include flex-direction(row);
+  }
+
+  > .blog-list__article-title,
+  > .blog-list__article-excerpt {
+    @include flex-grow(1);
+    // @include flex-basis(0);
+    width: 100%;
+  }
+
+}
+
+.blog-list__article-title,
+.blog-list__article-excerpt {
+  padding: $grid-gutter-width/2;
+}
+
+.blog-list__article-title {
+  @include flex-grow(2);
+}
+
+.blog-list__article-excerpt {
+  // @include justify-content(flex-start);
+
+  @media (min-width: $screen-md-min) {
+    @include display-flex;
+    @include justify-content(flex-end);
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  img[src*="ticket"] {
+    width: 60px;
+  }
+}
+
+// Article pages
+.template-article {
+  img[src*="ticket"] {
+    width: 100px;
+  }
+}
