@@ -1,1 +1,9 @@
-{% section 'blog' %}
+<div class="layout-content-wrapper flush-top">
+
+  {% section 'blog' %}
+
+  {% if blog.handle == "podcast" %}
+    {% section 'page-family-podcasts' %}
+  {% endif %}
+
+</div>

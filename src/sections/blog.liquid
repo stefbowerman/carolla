@@ -7,41 +7,40 @@
 
 <div class="layout-content-wrapper">
 
-  <section data-section-id="{{ section.id }}" data-section-type="blog">
+  {% paginate blog.articles by 16 %}
 
-    {% paginate blog.articles by 16 %}
+    {% if hero_background_image %}
 
       {% include 'page-header', title: hero_title %}
 
       <div class="container">
 
-        {% comment %}
 
-        Article Previews
-        ====================
-        {% endcomment %}
+      {% comment %}
 
-        <div class="content-grid content-grid--3-col">
-          {% for article in blog.articles %}
-            <div class="content-grid__item">
-              {% include 'article-card', article: article, show_author: false, show_tags: false %}
-            </div>
-          {% endfor %}
-        </div>
+      Article Previews
+      ====================
+      {% endcomment %}
 
-        {% if paginate.next.is_link %}
-          {% comment %} See scripts/sections/blog.js {% endcomment %}
-          <div class="u-ta-center" style="padding: 10px 0" data-pagination>
-            <a href="{{ paginate.next.url }}" data-next-page>Load More</a>
+      <div class="content-grid content-grid--3-col">
+        {% for article in blog.articles %}
+          <div class="content-grid__item">
+            {% include 'article-card', article: article, show_author: false, show_tags: false %}
           </div>
-        {% endif %}
+        {% endfor %}
       </div>
 
-    {% endpaginate %}
+      {% if paginate.next.is_link %}
+        {% comment %} See scripts/sections/blog.js {% endcomment %}
+        <div class="u-ta-center" style="padding: 10px 0" data-pagination>
+          <a href="{{ paginate.next.url }}" data-next-page>Load More</a>
+        </div>
+      {% endif %}
+    </div>
 
-  </section>
+  {% endpaginate %}
 
-</div>
+</section>
 
 {% schema %}
   {
