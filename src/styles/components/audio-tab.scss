@@ -1,0 +1,65 @@
+// -----------------------------------------------------------------------------
+// Audio Tab
+// -----------------------------------------------------------------------------
+
+$audio-tab-clinger-width: 85px;
+$audio-tab-body-width: 300px;
+
+.audio-tab {
+  position: fixed;
+  bottom: $grid-gutter-width;
+  right: 0;
+  width: $audio-tab-clinger-width + $audio-tab-body-width;
+
+  @include display-flex;
+  @include align-items(stretch);
+  @include justify-content(center);
+
+  @include translateX(#{$audio-tab-body-width + $audio-tab-clinger-width});
+  @include transition-transform($transition-duration-base $transition-timing-function-in-out-ui);
+
+  &.is-ready {
+    @include translateX($audio-tab-body-width);
+  }
+
+  &.is-open {
+    @include translateX(0px);
+  }
+}
+
+.audio-tab__clinger,
+.audio-tab__body {
+  display: inline-block;
+  float: left;
+}
+
+@keyframes pulsate-color {
+  0%, 100% {
+    background-color: $color-black;
+  }
+  50% {
+    background-color: #014a65;
+  }
+}
+
+.audio-tab__clinger {
+  @include inline-flex;
+  @include align-items(center);
+  @include justify-content(center);
+  width: $audio-tab-clinger-width;
+  border: 1px solid $color-white;
+  border-right-width: 0;
+  background: $color-black;
+  font-size: $font-size-xsmall;
+
+  .audio-tab.is-playing & {
+    background-color: $color-black;
+    animation-name: pulsate-color;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+  }
+}
+
+.audio-tab__body {
+  width: $audio-tab-body-width;
+}

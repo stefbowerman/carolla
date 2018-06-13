@@ -64,6 +64,7 @@
  // =require vendor/jquery.unveil.js
  
 /*!
- * ImagesLoaded
+ * plyr
  */
- // =require /../../node_modules/imagesloaded/imagesloaded.pkgd.min.js
+ // =require /../../node_modules/plyr/dist/plyr.min.js
+ 

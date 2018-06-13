@@ -5,10 +5,18 @@
   <div class="content-grid content-grid--centered content-grid--{{ section.settings.ads_per_row }}-col">
     {% for block in section.blocks %}
       <div class="content-grid__item" {{ block.shopify_attributes }}>
-        {% if block.settings.url != blank %}<a href="{{ block.settings.url }}" title="{{ block.settings.title }}">{% endif %}
-          <div class="frame frame--250x300" style="background-image: url({{ block.settings.image | img_url: '500x' }}); margin: 0 auto">
-          </div>
-        {% if block.settings.url != blank %}</a>{% endif %}
+        {% if block.type == "ad_image" %}
+          {% if block.settings.url != blank %}<a href="{{ block.settings.url }}" title="{{ block.settings.title }}">{% endif %}
+            <div class="frame frame--250x300" style="background-image: url({{ block.settings.image | img_url: '500x' }}); margin: 0 auto">
+            </div>
+          {% if block.settings.url != blank %}</a>{% endif %}
+        {% elsif block.type == "ad_embed" %}
+            <div class="frame frame--250x300" style="margin: 0 auto">
+              <div class="frame__inner">
+                {{ block.settings.embed_code }}
+              </div>
+            </div>
+        {% endif %}
       </div>
     {% endfor %}
   </div>
@@ -37,8 +45,8 @@
     ],
     "blocks": [
       {
-        "type": "ad",
-        "name": "Ad",
+        "type": "ad_image",
+        "name": "Ad - Image",
         "settings": [
           {
             "type": "image_picker",
@@ -55,6 +63,17 @@
             "type": "url",
             "id": "url",
             "label": "Link"
+          }
+        ]
+      },
+      {
+        "type": "ad_embed",
+        "name": "Ad - Embed",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "embed_code",
+            "label": "Embed Code"
           }
         ]
       }

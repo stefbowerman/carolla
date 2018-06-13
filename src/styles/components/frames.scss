@@ -40,7 +40,7 @@
 }
 
 .frame--250x300 {
-  width: 250px;
+  width: 300px;
   max-width: 100%;
   @include aspect-ratio(300, 250);
 }
