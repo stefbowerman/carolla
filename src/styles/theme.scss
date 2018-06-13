@@ -8,6 +8,7 @@
 // Import these up here to allow overrides down below
 @import url('vendor/slick.scss');
 @import url('vendor/chosen.scss');
+@import url('vendor/plyr.scss');
 
 /*================ GLOBAL ================*/
 @import url('global/variables.scss.liquid');
@@ -56,6 +57,7 @@
 @import url('components/logo-item.scss');
 @import url('components/hero.scss');
 @import url('components/subscription.scss');
+@import url('components/audio-tab.scss');
 
 /*================ MODULES ================*/
 // Modules are larger pieces of functionality that consume components

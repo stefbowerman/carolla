@@ -46,6 +46,7 @@ window.theme = window.theme || {};
 // =require sections/mobileMenu.js
 // =require sections/blog.js
 // =require sections/hero.js
+// =require sections/audioPlayer.js
 
 /*================ Templates ================*/
 // =require templates/customers-addresses.js
@@ -76,6 +77,7 @@ window.theme = window.theme || {};
     sections.register('mobile-menu', theme.MobileMenu);
     sections.register('blog', theme.Blog);
     sections.register('hero', theme.Hero);
+    sections.register('audio-player', theme.AudioPlayer);
 
     $('.in-page-link').on('click', function(evt) {
       slate.a11y.pageLinkFocus($(evt.currentTarget.hash));

@@ -164,7 +164,7 @@
 
 .header-nav__menu-item {
   display: inline-block;
-  margin: 0 6px;
+  margin: 0 4px;
 
   &:first-child {
     margin-left: 0;
@@ -179,7 +179,7 @@
   }
 
   > a {
-    padding: 27px 4px; // use vertical padding to match the height of the header
+    padding: 51px 6px; // use vertical padding to match the height of the header
     text-transform: uppercase;
   }
 }
