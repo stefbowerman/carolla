@@ -13,7 +13,8 @@ theme.Hero = (function($) {
     hero: '[data-hero]',
     pencilBanner: '[data-pencil-banner]',
     header: '[data-header]',
-    slideshowWrapper: '[data-slideshow-wrapper]'
+    slideshowWrapper: '[data-slideshow-wrapper]',
+    slide: '[data-slideshow-slide]'
   };
 
   var classes = {
@@ -40,7 +41,7 @@ theme.Hero = (function($) {
     }
 
     var settings = {
-      dots: true,
+      dots: ($(selectors.slide, this.$container).length > 1 ? true : false),
       arrows: false,
       autoplay: true
     };

@@ -16,7 +16,8 @@ slate.models.Slideshow = (function($, Modernizr) {
   var selectors = {
     slideshowWrapper: '[data-slideshow-wrapper]',
     slideshow: '[data-slideshow]',
-    slide: '[data-slideshow-slide]'
+    slide: '[data-slideshow-slide]',
+    pauseToggle: '[data-pause-toggle]'
   };
 
   var KEYS = {

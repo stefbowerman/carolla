@@ -10,7 +10,7 @@ $audio-tab-height: 60px;
 .audio-tab {
   position: fixed;
   z-index: $z-index-audio-tab;
-  bottom: 0;
+  bottom: 10px;
   right: 0;
   width: $audio-tab-clinger-width + $audio-tab-body-width;
   max-width: calc(100% - #{$audio-tab-clinger-width});

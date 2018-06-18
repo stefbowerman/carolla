@@ -130,11 +130,12 @@ theme.AudioPlayer = (function($, slate, Plyr) {
     playTrackByPlaylistIndex: function(index) {
       if(index == this.playlistPlayingIndex) {
         this.open();
-        return;
+      }
+      else {
+        this.goToTrackByPlaylistIndex(index);
+        this.player.currentTime = 0;
       }
 
-      this.goToTrackByPlaylistIndex(index);
-      this.player.currentTime = 0;
       this.player.play();  
     },
 
@@ -237,6 +238,10 @@ theme.AudioPlayer = (function($, slate, Plyr) {
 
       if(!Array.isArray(data)) {
         data = [data];
+      }
+
+      if(!data.length) {
+        return;
       }
 
       var firstAddedTrackIndex; // If the data has multiple entries, save the index of the *first* entry that we add to the playlist
