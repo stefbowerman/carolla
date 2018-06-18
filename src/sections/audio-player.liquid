@@ -8,7 +8,13 @@
         <img src="{{ 'carolla-icon.png' | asset_img_url: '150x' }}" />
       </a>
       <div class="audio-tab__body">
-        <div class="audio-tab__body-child audio-tab__track-title" data-audio-player-track-title></div>
+        <div class="audio-tab__body-child">
+          <div class="audio-tab__track-title">
+            <a href="#" class="audio-tab__playlist-control audio-tab__playlist-control--prev" title="Play previous track" data-audio-player-prev>←</a>
+            <span data-audio-player-track-title></span>
+            <a href="#" class="audio-tab__playlist-control audio-tab__playlist-control--next" title="Play next track" data-audio-player-next>→</a>
+          </div>
+        </div>
         <div class="audio-tab__body-child">
           <audio controls data-audio-player-track-audio>
             <source type="audio/mp3">
@@ -23,7 +29,7 @@
         {
           "playlist": [
             {% assign articles_with_mp3s_count = 0 %}
-            {% for article in podcast_blog.articles limit: 2 %}
+            {% for article in podcast_blog.articles limit: 200 %}
               {% assign has_mp3 = false %}
               {% if article.metafields.podcast_mp3.part_1 != blank or article.metafields.podcast_mp3.part_2 != blank %}
                 {% unless forloop.first or articles_with_mp3s_count == 0 %},{% endunless %}

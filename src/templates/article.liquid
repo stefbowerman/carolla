@@ -16,9 +16,24 @@
 {% comment %} Shopify doesn't have a way to access article.blog directly so we have to parse out the url {% endcomment %}
 {% assign blog_handle = article.url | replace: 'blogs/', '' | replace: '/', ' ' | split: ' ' | first %}
 
+{% assign is_podcast = false %}
+{% if blog_handle contains 'podcast' %}
+  {% assign is_podcast = true %}
+{% endif %}
+
 {% capture article_date %}{{ article.published_at | time_tag: format: 'month_day' }}{% endcapture %}
+
+{% capture article_days_old %}
+  {% assign time_seconds = article.published_at | date: '%s' %}
+  {% assign now_seconds = 'now' | date: '%s' %}
+  {% assign interval_seconds = now_seconds | minus: time_seconds %}
+  {% assign interval_days = interval_seconds | divided_by: 86400 | floor %}
+  {{ interval_days }}
+{% endcapture %}
+{% assign article_days_old = article_days_old | times: 1 %}
+
 {% capture subtitle %}
-  {% if blog_handle contains 'podcast' %}
+  {% if is_podcast %}
     {{ article_date }}
   {% else %}
     {% unless blog_handle contains 'event' or blog_handle %}
@@ -37,10 +52,31 @@
       <div class="row">
         <div class="col-lg-10 col-lg-offset-1 col-xl-8 col-xl-offset-2">
 
+          {% if is_podcast and article_days_old < 30 %}
+            {% capture podcast_data %}
+              {% include 'podcast-article-data', article: article %}
+            {% endcapture %}
+
+            {% if podcast_data != blank %}
+              {% assign podcast_data = podcast_data | prepend: '[' %}
+              {% assign podcast_data = podcast_data | append: ']' %}
+
+              {% capture cta_attributes %}
+                data-audio-player-track-trigger="{{ podcast_data | escape }}"
+              {% endcapture %}
+
+              <div class="content-header">
+                <a href="#" class="btn btn-primary" {{ cta_attributes }}>
+                  Listen Now                
+                </a>
+              </div>
+            {% endif %}
+          {% endif %}
+
           {% if settings.social_sharing_blog %}
             {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
             <br />
-          {% endif %}        
+          {% endif %}    
 
           <div class="rte" itemprop="articleBody">
             {{ article.content }}

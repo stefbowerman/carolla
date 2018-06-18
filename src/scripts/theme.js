@@ -101,6 +101,10 @@ window.theme = window.theme || {};
 
   // Runs everytime pjax completes an AJAX request
   function domReadyContent() {
+
+    unregisterContentSections();
+    registerContentSections();
+
     $('.collapse.in').each(function() {
       $(this).parents('.panel').addClass(panelIsOpenClass);
     });
@@ -145,7 +149,6 @@ window.theme = window.theme || {};
   // Runs once on initial page load
   function domReadyOnce() {
     registerGlobalSections();
-    registerContentSections();
 
     // Apply UA classes to the document
     slate.utils.userAgentBodyClass();    
@@ -196,15 +199,12 @@ window.theme = window.theme || {};
       
       $document.on('pjax:start', function() {
         $body.addClass('pjax-loading');
-        unregisterContentSections();
       });
       
       $document.on('pjax:end', function(event) {
         // console.log('pjax end.  reinit!');
         $body.removeClass('pjax-loading');
         domReadyContent();
-        // registerContentSections();
-        // slate.utils.chosenSelects();
       });
     }
     else {

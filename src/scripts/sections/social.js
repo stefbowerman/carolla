@@ -12,13 +12,18 @@
 theme.Social = (function($, Instafeed) {
 
   var selectors = {
-    target: '[data-instagram-feed-target]',
+    instagramTarget: '[data-instagram-feed-target]',
+    facebookTarget: '[data-facebook-target]',
+    twitterTarget: '[data-twitter-target]',
     template: 'script[data-instagram-media-template]'
   };
 
   var classes = {
 
   };
+
+  var facebookEmbed = '<div class="fb-page" data-href="https://www.facebook.com/adamcarolla" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/adamcarolla" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/adamcarolla">Adam Carolla</a></blockquote></div>';
+  var twitterEmbed = '<a class="twitter-timeline" data-theme="dark" href="https://twitter.com/adamcarolla?ref_src=twsrc%5Etfw">Tweets by adamcarolla</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>';
 
   /**
    * Social section constructor. Runs on page load as well as Theme Editor
@@ -32,7 +37,9 @@ theme.Social = (function($, Instafeed) {
     this.name = 'social';
     this.namespace = '.'+this.name;
 
-    this.$target = $(selectors.target, this.$container);
+    this.$instagramTarget = $(selectors.instagramTarget, this.$container);
+    this.$facebookTarget = $(selectors.facebookTarget);
+    this.$twitterTarget = $(selectors.twitterTarget);
 
     // Compile this once during initialization
     this.template = Handlebars.compile($(selectors.template).html());    
@@ -60,6 +67,8 @@ theme.Social = (function($, Instafeed) {
      *
      */
     init: function() {
+
+      // Instagram stuff
       $.ajax({
         type: 'GET',
         url: 'https://api.instagram.com/v1/users/self?access_token=' + this.settings.accessToken,
@@ -82,6 +91,11 @@ theme.Social = (function($, Instafeed) {
         this.feed = new Instafeed(this.settings);
         this.feed.run();
       }.bind(this));
+
+      // Other social
+      this.$facebookTarget.html(facebookEmbed);
+      this.$twitterTarget.html(twitterEmbed);
+
     },
 
   /**
@@ -103,7 +117,7 @@ theme.Social = (function($, Instafeed) {
           caption: photo.caption && photo.caption.text || ''
         };
 
-        self.$target.append(self.template(data));
+        self.$instagramTarget.append(self.template(data));
       });
 
     },

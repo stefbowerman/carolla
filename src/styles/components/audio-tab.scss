@@ -4,13 +4,8 @@
 
 $audio-tab-clinger-width: 64px;
 $audio-tab-body-width: 250px;
+$audio-tab-body-width-large: 650px;
 $audio-tab-height: 60px;
-
-$debug: true;
-
-@if $debug {
-  $audio-tab-body-width: 600px;
-}
 
 .audio-tab {
   position: fixed;
@@ -18,6 +13,7 @@ $debug: true;
   bottom: 0;
   right: 0;
   width: $audio-tab-clinger-width + $audio-tab-body-width;
+  max-width: calc(100% - #{$audio-tab-clinger-width});
 
   @include display-flex;
   @include align-items(stretch);
@@ -26,27 +22,37 @@ $debug: true;
   @include translateX(#{$audio-tab-body-width + $audio-tab-clinger-width});
   @include transition-transform($transition-duration-base $transition-timing-function-in-out-ui);
 
+  @media (min-width: $screen-sm-min) {
+    bottom: $grid-gutter-width;
+    width: $audio-tab-clinger-width + $audio-tab-body-width-large;
+    @include translateX(#{$audio-tab-body-width-large + $audio-tab-clinger-width});
+  }
+
   &.is-ready {
     @include translateX($audio-tab-body-width + 1px);
+    @media (min-width: $screen-md-min) {
+       @include translateX($audio-tab-body-width-large + 1px);
+    }
   }
 
   &.is-open {
     @include translateX(0px);
   }
 
-  @media (min-width: $screen-md-min) {
-    bottom: $grid-gutter-width;
-    bottom: 50%;
-  }
-
   .plyr--audio .plyr__controls {
     background-color: $color-black;
     color: $color-white;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .plyr__control {
     border-radius: 0;
     padding: 4px;
+  }
+
+  .plyr__time {
+    font-size: $font-size-small;
   }
 }
 
@@ -97,6 +103,10 @@ $debug: true;
   border-left: none;
   border-right: none;
   @include flex-wrap(wrap);
+
+  @media (min-width: $screen-sm-min) {
+    width: $audio-tab-body-width-large;
+  }
 }
 
 .audio-tab__body-child {
@@ -112,4 +122,22 @@ $debug: true;
   font-size: $font-size-xsmall;
   text-align: center;
   @include text-overflow;
+  position: relative;
+  padding: 0 45px; // make room for playlist arrows
+}
+
+.audio-tab__playlist-control {
+  position: absolute;
+  top: 50%;
+  padding: 0 10px;
+  font-size: $font-size-large;
+
+  &.audio-tab__playlist-control--prev {
+    left: 10px;
+    @include translate(-10px, -50%);
+  }
+  &.audio-tab__playlist-control--next {
+    right: 10px;
+    @include translate(10px, -50%);
+  }
 }

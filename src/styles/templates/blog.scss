@@ -35,13 +35,18 @@
 .blog-list__article-excerpt {
   // @include justify-content(flex-start);
 
+  p:last-child {
+    margin-bottom: 0;
+  }
+
   @media (min-width: $screen-md-min) {
     @include display-flex;
     @include justify-content(flex-end);
-  }
+    @include align-items(center);
 
-  p:last-child {
-    margin-bottom: 0;
+    p {
+      margin-bottom: 0;
+    }
   }
 
   img[src*="ticket"] {
