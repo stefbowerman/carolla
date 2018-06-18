@@ -3,9 +3,16 @@
 // -------------------------
 
 .social-sharing {
+  margin-left: -4px;
+  margin-right: -4px;
 
   > a {
+    margin: 0 4px;
 
+    svg {
+      width: 17px;
+      height: 17px;
+    }
   }
 
   span[aria-hidden="true"] {

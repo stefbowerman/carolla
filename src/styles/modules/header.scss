@@ -226,23 +226,8 @@
   pointer-events: none;
   opacity: 0;
   box-shadow: $header-dropdown-box-shadow;
+  border-bottom: 1px solid $color-blue;
   @include transition(opacity $transition-duration-dropdown $transition-timing-function-dropdown-out);
-
-  // If the header has a transparent background, you'll need this :before element to make sure that things look good when the dropdown opens
-  // &:before {
-  //   content: "";
-  //   position: absolute;
-  //   left: 0;
-  //   right: 0;
-  //   top: 0;
-  //   height: $header-height-small;
-  //   background: $color-white;
-  //   @include translateY(-100%);
-
-  //   @media (min-width: $header-bp-min) {
-  //     height: $header-height-base;
-  //   }
-  // }
 
   &.is-open,
   &.is-forced-open {

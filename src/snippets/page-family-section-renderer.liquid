@@ -75,19 +75,22 @@
   {% for block in section.blocks %}  
     <div class="cms-block" {{ block.shopify_attributes }}>
       {% if block.type == "collection" %}
-        <h3 class="content-header u-ta-left">{{ block.settings.title }}</h3>
 
-        {% assign block_collection_handle = block.settings.collection %}
-        {% assign block_collection = collections[block.settings.collection] %}
-        {% if block_collection and block_collection.products.size > 0 %}
-          <div class="content-grid content-grid--4-col">
-          {% for i in (1..8) %}
-            {% assign p = block_collection.products[i] %}
-            <div class="content-grid__item">
-              {% include 'product-card', product: p %}
-            </div>
-          {% endfor %}
-        {% endif %}
+        <div class="container">
+          <h3 class="content-header u-ta-left">{{ block.settings.title }}</h3>
+
+          {% assign block_collection_handle = block.settings.collection %}
+          {% assign block_collection = collections[block.settings.collection] %}
+          {% if block_collection and block_collection.products.size > 0 %}
+            <div class="content-grid content-grid--4-col">
+            {% for i in (1..8) %}
+              {% assign p = block_collection.products[i] %}
+              <div class="content-grid__item">
+                {% include 'product-card', product: p %}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
 
       {% elsif block.type == "article_grid" %}
         {% assign article_count = 0 %}

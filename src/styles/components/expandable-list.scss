@@ -44,9 +44,9 @@
 .expandable-list__item {
   padding: $expandable-list-item-padding-vertical 0;
 
-  &:not(:last-of-type) {
-    border-bottom: $expandable-list-item-border;  
-  }
+  // &:not(:last-of-type) {
+  //   border-bottom: $expandable-list-item-border;  
+  // }
   
 }
 

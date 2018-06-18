@@ -41,8 +41,7 @@ slate.productCard = (function() {
     }
   }
 
-  $(document).ready(function() {
-
+  function initializeCards() {
     var $productCards = $(selectors.el);
 
     if(!$productCards.length) {
@@ -58,6 +57,14 @@ slate.productCard = (function() {
         $img.parents(selectors.gallery).addClass(classes.mainLoaded);
       });
     });
+  }
+
+  $(document).ready(function() {
+
+    $(document).on('pjax:end', initializeCards);
+
+    initializeCards();
+
   });
 
   

@@ -43,6 +43,25 @@
   }
 }
 
+#MainContent {
+  position: relative;
+
+  &:before {
+    content: '';
+    @include stretch-within;
+    z-index: 1;
+    background-color: $body-bg;
+    opacity: 0;
+    pointer-events: none;
+
+    @include transition(opacity $transition-duration-slow ease-in-out);
+
+    body.pjax-loading & {
+      opacity: 1;   
+    }
+  }
+}
+
 // Homepage layout
 
 .template-index #MainContent {

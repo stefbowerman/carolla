@@ -18,9 +18,13 @@
 
 {% capture article_date %}{{ article.published_at | time_tag: format: 'month_day' }}{% endcapture %}
 {% capture subtitle %}
-  {% unless blog_handle contains 'event' %}
-    {{ 'blogs.article.author_on_date_html' | t: author: article.author, date: article_date }}
-  {% endunless %}
+  {% if blog_handle contains 'podcast' %}
+    {{ article_date }}
+  {% else %}
+    {% unless blog_handle contains 'event' or blog_handle %}
+      {{ 'blogs.article.author_on_date_html' | t: author: article.author, date: article_date }}
+    {% endunless %}
+  {% endif %}
 {% endcapture %}
 
 <div class="layout-content-wrapper">
@@ -36,16 +40,6 @@
           {% if settings.social_sharing_blog %}
             {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
             <br />
-          {% endif %}
-
-          {% if article.tags.size > 0 %}
-            <ul class="list-inline">
-              {% for tag in article.tags %}
-                <li>
-                  <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
-                </li>
-              {% endfor %}
-            </ul>
           {% endif %}        
 
           <div class="rte" itemprop="articleBody">

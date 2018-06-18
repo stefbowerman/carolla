@@ -326,7 +326,6 @@
       * Allows us to add event handlers for events that don't bubble
       */
       onCartRender: function(e) {
-        console.log('['+this.name+'] - onCartRender');
       },
 
      /**
@@ -334,7 +333,6 @@
       * Allows us to do cleanup on any event handlers applied post-render
       */
       onCartDestroy: function(e) {
-        console.log('['+this.name+'] - onCartDestroy');
       },
 
      /**
@@ -432,7 +430,6 @@
       */
       onItemIncrementClick: function(e) {
         e.preventDefault();
-        console.log('['+this.name+'] - onItemIncrementClick');
 
         var attrs = this._getItemRowAttributes(e.target);
         
@@ -446,7 +443,6 @@
       */
       onItemDecrementClick: function(e) {
         e.preventDefault();
-        console.log('['+this.name+'] - onItemDecrementClick');
 
         var attrs = this._getItemRowAttributes(e.target);
         var newQty = (attrs.qty < 1 ? 0 : attrs.qty - 1);
@@ -471,7 +467,6 @@
       */
       onCloseClick: function(e) {
         e.preventDefault();
-        console.log('['+this.name+'] - onCloseClick');
 
         // Do any cleanup before closing the cart
         this.close();
@@ -508,7 +503,6 @@
       */
       open: function() {
         if(this.stateIsOpen) return;
-        console.log('['+this.name+'] - open');
         this.stateIsOpen = true;
 
         this.$el.addClass(classes.cartOpen);
@@ -520,7 +514,6 @@
       close: function() {
         if(!this.stateIsOpen) return;
 
-        console.log('['+this.name+'] - close');
         this.stateIsOpen = false;
 
         this.$el.removeClass(classes.cartOpen);

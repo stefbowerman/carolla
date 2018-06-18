@@ -36,14 +36,33 @@
       <div class="slideshow" id="slideshow-{{ section.id }}" data-slideshow>    
         
         {% for block in section.blocks %}
+
+          {% assign cta_url = block.settings.cta_text %}
+          {% assign cta_attributes = '' %}
+          
+          {% assign has_cta_info = false %}
+          {% if block.settings.cta_url != blank and cta_url != blank %}
+            {% assign has_cta_info = true %}
+          {% endif %}
+
+          {% assign has_podcast_link_info = false %}
+          {% if block.settings.podcast_article != blank %}
+            {% assign has_podcast_link_info = true %}
+            {% assign cta_url = podcast_article.url %}
+            {% capture podcast_data %}
+              [
+                {% include 'podcast-article-data', article: articles[block.settings.podcast_article] %}
+              ]
+            {% endcapture %}
+            {% capture cta_attributes %}
+              data-audio-player-track-trigger="{{ podcast_data | escape }}"
+            {% endcapture %}
+          {% endif %}
+
           <div class="hero__slide" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" data-slideshow-slide>
             <div class="hero__block{% if block.settings.dark_text %} hero__block--text-dark{% endif %}" {{ block.shopify_attributes }}>
               <div class="hero__bg-container">
                 <div id="hero__bg-image--{{ block.id }}" class="hero__bg-image"></div>
-                {% comment %} This video part is still WIP since we don't know the provider yet. {% endcomment %}
-                {% if block.settings.background_video_url != blank and block.settings.background_video_url.type == "vimeo" %}
-                  <div class="video-cover" data-video-id="{{ block.settings.background_video_url.id }}" data-video-type="{{ block.settings.background_video_url.type }}"></div>
-                {% endif %}
               </div>
               <div class="hero__content-container">
                 <div class="hero__content hero__content--{{ block.settings.content_alignment }} hero__content--text-{{ block.settings.text_alignment }}" style="max-width: {{ block.settings.content_max_width | append: 'px' }}">
@@ -55,9 +74,9 @@
                     <p class="hero__text p1">{{ block.settings.text }}</p>
                   {% endif %}
 
-                  {% if block.settings.cta_url != blank and block.settings.cta_text != blank %}
+                  {% if has_cta_info or has_podcast_link_info %}
                     <div class="hero__cta">
-                      <a href="{{ block.settings.cta_url }}" class="btn btn-primary">
+                      <a href="{{ cta_url }}" class="btn btn-primary" {{ cta_attributes }}>
                         {{ block.settings.cta_text }}                 
                       </a>
                     </div>
@@ -114,7 +133,13 @@
             "type": "url",
             "id": "cta_url",
             "label": "CTA Link"
-          },        
+          },
+          {
+            "type": "article",
+            "id": "podcast_article",
+            "label": "Link to Podcast",
+            "info": "If set to a podcast article with mp3 metadata, clicking the CTA will trigger the inline player."
+          },  
           {
             "type": "header",
             "content": "Design"
@@ -176,12 +201,6 @@
             "type": "image_picker",
             "id": "background_small",
             "label": "Main Image - Small Screens"
-          },
-          {
-            "type": "video_url",
-            "id": "background_video_url",
-            "label": "Background Video URL",
-            "accept": ["vimeo"]
           }
         ]
       }

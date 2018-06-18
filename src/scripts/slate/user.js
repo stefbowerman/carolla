@@ -45,7 +45,22 @@ slate.user = (function(Cookies) {
       emailCollected: {
         name: 'emailCollected',
         value: true
-      }      
+      },
+      playerPlaying: {
+        name: 'playerPlaying',
+        value: true,
+        expires: 365
+      },
+      playerAudioFile: {
+        name: 'playerAudioFile',
+        value: true,
+        expires: 365
+      },
+      playerPosition: {
+        name: 'playerPosition',
+        value: true,
+        expires: 365
+      }
     },
 
    /**

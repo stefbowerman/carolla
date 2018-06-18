@@ -1,0 +1,31 @@
+{%- comment %}
+
+  Podcast Article Data
+  ------------------------------------------------------------------------------
+
+  Usage:
+
+  {% include 'podcast-article-data',
+              article: { article }
+  %}
+
+{% endcomment -%}
+
+{% if article %}
+
+  {% if article.metafields.podcast_mp3.part_1 != blank %}
+    {
+      "title": {{ article.title | json }},
+      "link": {{ article.url | json }},
+      "src": {{ article.metafields.podcast_mp3.part_1 | json }}
+    }
+    {% if article.metafields.podcast_mp3.part_2 != blank %}
+      ,{
+        "title": {{ article.title | append: ' - Part 2' | json }},
+        "link": {{ article.url | json }},
+        "src": {{ article.metafields.podcast_mp3.part_2 | json }}
+      }
+    {% endif %}
+  {% endif %}
+
+{% endif %}

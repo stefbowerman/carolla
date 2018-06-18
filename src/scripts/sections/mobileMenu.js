@@ -26,6 +26,8 @@ theme.MobileMenu = (function($) {
 
     this.$toggle.on('click', this.onToggleClick.bind(this));
 
+    $(document).on('pjax:start', this.drawer.hide.bind(this.drawer));
+
   }
 
   MobileMenu.prototype = $.extend({}, MobileMenu.prototype, {

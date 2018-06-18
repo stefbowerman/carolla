@@ -1,16 +1,43 @@
+{% assign MAX_PLAYLIST_ITEMS = 5 %}
+
 <div data-section-id="{{ section.id }}" data-section-type="audio-player">
-  {% if section.settings.mp3_file_url != blank and section.settings.enabled %}
+  {% if section.settings.enabled %}
+    
     <div class="audio-tab" data-audio-tab>
       <a href="#" class="audio-tab__clinger" data-audio-tab-toggle>
-        Listen Now
+        <img src="{{ 'carolla-icon.png' | asset_img_url: '150x' }}" />
       </a>
       <div class="audio-tab__body">
-        <audio controls data-audio-player-audio>
-          <source src="{{ section.settings.mp3_file_url }}" type="audio/mp3">
-        </audio>
+        <div class="audio-tab__body-child audio-tab__track-title" data-audio-player-track-title></div>
+        <div class="audio-tab__body-child">
+          <audio controls data-audio-player-track-audio>
+            <source type="audio/mp3">
+          </audio>
+        </div>
       </div>
     </div>
 
+    {% if section.settings.podcast_blog %}
+      {% assign podcast_blog = blogs[section.settings.podcast_blog] %}
+      <script type="application/json" data-player-json>
+        {
+          "playlist": [
+            {% assign articles_with_mp3s_count = 0 %}
+            {% for article in podcast_blog.articles limit: 2 %}
+              {% assign has_mp3 = false %}
+              {% if article.metafields.podcast_mp3.part_1 != blank or article.metafields.podcast_mp3.part_2 != blank %}
+                {% unless forloop.first or articles_with_mp3s_count == 0 %},{% endunless %}
+                {% assign articles_with_mp3s_count = articles_with_mp3s_count | plus: 1 %}
+                {% include 'podcast-article-data', article: article %}
+                {% if articles_with_mp3s_count == MAX_PLAYLIST_ITEMS %}
+                  {% break %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          ]
+        }
+      </script>
+    {% endif %}
   {% endif %}
 </div>
 
@@ -25,9 +52,9 @@
         "default": true
       },
       {
-        "type": "url",
-        "id": "mp3_file_url",
-        "label": "MP3 File Url"
+        "type": "blog",
+        "id": "podcast_blog",
+        "label": "Podcast blog"
       }
     ]
   }

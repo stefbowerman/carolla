@@ -52,8 +52,8 @@ theme.Footer = (function($) {
       setTimeout(this.reset.bind(this), 5000); 
     },
 
-    onSubmitFail: function() {
-      this.$formMessage.html( this.$formMessage.data('message-fail') );     
+    onSubmitFail: function(message) {
+      this.$formMessage.html( message );     
       this.$formContent.addClass(classes.showMessage);
       setTimeout(function(){
         this.$formContent.removeClass(classes.showMessage);

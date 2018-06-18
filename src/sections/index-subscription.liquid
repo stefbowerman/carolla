@@ -25,11 +25,7 @@
         </h4>
       {% endcapture %}
 
-      {% capture fail_message %}
-        <h4>Please check your email and try again.</h4>
-      {% endcapture %}
-
-      <div class="subscription__form-message" data-subscription-form-message data-message-success="{{ success_message | strip | escape }}" data-message-fail="{{ fail_message | strip | escape }}"></div>
+      <div class="subscription__form-message" data-subscription-form-message data-message-success="{{ success_message | strip | escape }}"></div>
 
     </div>  
   </div>

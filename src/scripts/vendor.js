@@ -67,4 +67,11 @@
  * plyr
  */
  // =require /../../node_modules/plyr/dist/plyr.min.js
+
+ /*!
+ * Copyright 2012, Chris Wanstrath
+ * Released under the MIT License
+ * https://github.com/defunkt/jquery-pjax
+ */
+ // =require /../../node_modules/jquery-pjax/jquery.pjax.js
  

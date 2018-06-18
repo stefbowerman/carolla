@@ -100,5 +100,25 @@ slate.Sections.prototype = $.extend({}, slate.Sections.prototype, {
     $('[data-section-type=' + type + ']').each(function(index, container) {
       this._createInstance(container, constructor);
     }.bind(this));
+  },
+
+  unregister: function(type) {
+    var indexesToRemove = [];
+
+    for (var i = this.instances.length - 1; i >= 0; i--) {
+      var instance = this.instances[i];
+      if(instance.type == type) {
+        indexesToRemove.push(i);
+      }
+    }
+
+    indexesToRemove.sort(function(a,b){ return b - a; });
+
+    // Loop through the remove indices in decending order
+    // and take that item out.
+    for (var k = indexesToRemove.length - 1; k >= 0; k--) {
+      this.instances.splice(indexesToRemove[k], 1);
+    }
   }
+
 });

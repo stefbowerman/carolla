@@ -46,3 +46,12 @@ slate zip # Creates a zip file for manually uploading your theme
 ```bash
 npm run jshint # Runs code linter on JS files
 ```
+
+### [Metafields](https://help.shopify.com/themes/liquid/objects/metafield)
+
+#### Articles
+
+| Namespace | Key | Usage |
+|---|---|---|
+| `podcast_mp3` | `part_1` | `article.metafields.podcast_mp3.part_1` |
+| `podcast_mp3` | `part_2` | `article.metafields.podcast_mp3.part_2` |

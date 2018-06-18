@@ -47,6 +47,7 @@ window.theme = window.theme || {};
 // =require sections/blog.js
 // =require sections/hero.js
 // =require sections/audioPlayer.js
+// =require sections/social.js
 
 /*================ Templates ================*/
 // =require templates/customers-addresses.js
@@ -59,25 +60,63 @@ window.theme = window.theme || {};
   var $window       = $(window);
   var $document     = $(document);
   var $body         = $(document.body);
+  var sections      = new slate.Sections();
 
-  $(document).ready(function() {
-    var sections = new slate.Sections();
-    sections.register('product', theme.Product);
-    sections.register('collection', theme.Collection);
-    sections.register('pencil-banner', theme.PencilBanner);
-    sections.register('subscription-modal', theme.SubscriptionModal);
-    sections.register('subscription-slideup', theme.SubscriptionSlideup);
-    sections.register('subscription', theme.Subscription);
-    sections.register('instagram-feed', theme.InstagramFeed);
-    sections.register('slideshow', theme.Slideshow);
+  var panelIsOpenClass = 'is-open';
+
+  function registerGlobalSections() {
+    sections.register('mobile-menu', theme.MobileMenu);
+    sections.register('audio-player', theme.AudioPlayer);
     sections.register('header', theme.Header);
     sections.register('footer', theme.Footer);
     sections.register('ajax-cart', theme.AjaxCart);
-    sections.register('cart', theme.Cart);
-    sections.register('mobile-menu', theme.MobileMenu);
+    // sections.register('pencil-banner', theme.PencilBanner);
+    // sections.register('subscription-modal', theme.SubscriptionModal);
+    // sections.register('subscription-slideup', theme.SubscriptionSlideup);
+  }
+
+  function registerContentSections() {
     sections.register('blog', theme.Blog);
     sections.register('hero', theme.Hero);
-    sections.register('audio-player', theme.AudioPlayer);
+    sections.register('product', theme.Product);
+    sections.register('collection', theme.Collection);
+    sections.register('subscription', theme.Subscription);
+    sections.register('instagram-feed', theme.InstagramFeed);
+    sections.register('slideshow', theme.Slideshow);
+    sections.register('cart', theme.Cart);
+    sections.register('social', theme.Social);
+  }
+
+  function unregisterContentSections() {
+    sections.unregister('blog');
+    sections.unregister('hero');
+    sections.unregister('product');
+    sections.unregister('collection');
+    sections.unregister('subscription');
+    sections.unregister('instagram-feed');
+    sections.unregister('slideshow');
+    sections.unregister('cart');
+    sections.unregister('social');
+  }
+
+  // Runs everytime pjax completes an AJAX request
+  function domReadyContent() {
+    $('.collapse.in').each(function() {
+      $(this).parents('.panel').addClass(panelIsOpenClass);
+    });
+
+    // Open external links in a new window
+    $(document.links).filter(function() {
+      return this.hostname != window.location.hostname;
+    }).attr('target', '_blank');
+
+    // Global handler for form inputs that come back with errors applied
+    $('.form-group.has-error').on('change keydown', '.form-control', function() {
+      $(this).parents('.has-error').removeClass('has-error');
+    });
+
+    // Chosen JS plugin for select boxes
+    slate.utils.chosenSelects();
 
     $('.in-page-link').on('click', function(evt) {
       slate.a11y.pageLinkFocus($(evt.currentTarget.hash));
@@ -101,6 +140,12 @@ window.theme = window.theme || {};
       $iframes: $(iframeSelectors),
       iframeWrapperClass: 'rte__video-wrapper'
     });
+  }
+
+  // Runs once on initial page load
+  function domReadyOnce() {
+    registerGlobalSections();
+    registerContentSections();
 
     // Apply UA classes to the document
     slate.utils.userAgentBodyClass();    
@@ -110,17 +155,7 @@ window.theme = window.theme || {};
       document.documentElement.className = document.documentElement.className.replace('supports-no-cookies', 'supports-cookies');
     }
 
-    // Chosen JS plugin for select boxes
-    slate.utils.chosenSelects();
-
-    // Global handler for form inputs that come back with errors applied
-    $('.form-group.has-error').on('change keydown', '.form-control', function() {
-      $(this).parents('.has-error').removeClass('has-error');
-    });
-
     // START - Global handler for collapse plugin to add state class for open panels
-    var panelIsOpenClass = 'is-open';
-
     $document.on('show.bs.collapse', '.collapse', function(e) {
       $(e.currentTarget).parents('.panel').addClass(panelIsOpenClass);
     });
@@ -128,10 +163,6 @@ window.theme = window.theme || {};
     $document.on('hide.bs.collapse', '.collapse', function(e) {
       $(e.currentTarget).parents('.panel').removeClass(panelIsOpenClass);
     });    
-
-    $('.collapse.in').each(function() {
-      $(this).parents('.panel').addClass(panelIsOpenClass);
-    });
     // END - Global handler for collapse plugin to add state class for open panels
 
     // If we have the search overlay, make sure we focus the input when it opens
@@ -145,10 +176,45 @@ window.theme = window.theme || {};
       });
     }
 
-    // Open external links in a new window
-    $(document.links).filter(function() {
-      return this.hostname != window.location.hostname;
-    }).attr('target', '_blank');
+    domReadyContent();
+
+    // AJAX-ify the site
+    if(!slate.utils.isThemeEditor()) {
+
+      $document.pjax('a', '#MainContent', { fragment: '#MainContent', timeout: 10000 });
+
+      // $document.on('submit', 'form[data-pjax]', function(event) {
+      //   event.preventDefault();
+      //   $.pjax.submit(event, '#MainContent', {
+      //       'push': true,
+      //       'replace': false,
+      //       'timeout': 5000,
+      //       'scrollTo': 0,
+      //       'maxCacheLength': 0
+      //   });
+      // });
+      
+      $document.on('pjax:start', function() {
+        $body.addClass('pjax-loading');
+        unregisterContentSections();
+      });
+      
+      $document.on('pjax:end', function(event) {
+        // console.log('pjax end.  reinit!');
+        $body.removeClass('pjax-loading');
+        domReadyContent();
+        // registerContentSections();
+        // slate.utils.chosenSelects();
+      });
+    }
+    else {
+      domReadyContent();
+    }
+  }
+
+  $(document).ready(function() {
+
+    domReadyOnce();
 
   });
 
