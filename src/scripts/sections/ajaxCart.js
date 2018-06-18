@@ -25,9 +25,10 @@ theme.AjaxCart = (function($) {
 
     this.ajaxCart = new slate.AjaxCart();
 
-    if (!$body.hasClass('template-cart')) {
-      this.ajaxCart.init();      
-    }
+    this.ajaxCart.init();      
+
+    $(document).on('pjax:start', this.ajaxCart.close.bind(this.ajaxCart));
+
   }
 
   AjaxCart.prototype = $.extend({}, AjaxCart.prototype, {

@@ -58,13 +58,17 @@
                             <li class="visible-xs">{{ item.line_price | money }}</li>
                           </ul>
 
+
                           <div class="visible-xs">
                             <div style="max-width: 80px;">
+                              QTY: {{ item.quantity }}
+                              {% comment %}
                               <select class="cart-list__item-quantity form-control" aria-label="{{ 'cart.general.item_quantity' | t }}" data-item-quantity-select="updates_{{ item.key }}">
                                 {% for i in (0..10) %}
                                   <option value="{{ i }}" {% if i == item.quantity %}selected="selected"{% endif %}>{{ i }}</option>
                                 {% endfor %}
                               </select>
+                              {% endcomment %}
                             </div>
                           </div>
 
@@ -75,6 +79,8 @@
                       </div>
                       <div class="cart-list__col-quantity">
                         <input type="number" value="{{ item.quantity }}" name="updates[]" id="updates_{{ item.key }}" style="display: none !important" />
+                        {{ item.quantity }}
+                        {% comment %}
                         <div style="max-width: 80px; margin: 0 auto">
                           <select class="cart-list__item-quantity form-control" aria-label="{{ 'cart.general.item_quantity' | t }}" data-item-quantity-select="updates_{{ item.key }}">
                             {% for i in (0..10) %}
@@ -82,6 +88,7 @@
                             {% endfor %}
                           </select>
                         </div>
+                        {% endcomment %}
                       </div>
                       <div class="cart-list__col-subtotal">
                         <span class="h5">{{ item.line_price | money }}</span>
