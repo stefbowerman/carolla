@@ -157,7 +157,17 @@ theme.AudioPlayer = (function($, slate, Plyr) {
       this.$playerTrackTitle.html($trackLink);
 
       this.player.stop();
-      this.$playerTrackAudio.find('source').attr('src', track.src);
+
+      this.player.source = {
+          type: 'audio',
+          title: track.title,
+          sources: [
+            {
+              src: track.src,
+              type: 'audio/mp3',
+            }
+          ]
+        };
     },
 
     onPlayerReady: function() {
