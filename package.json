@@ -1,6 +1,6 @@
 {
-  "name": "Z-Theme",
-  "description": "A shopify starter theme for Zehner Group",
+  "name": "Carolla",
+  "description": "A shopify theme",
   "version": "0.1.0",
   "devDependencies": {
     "@shopify/slate-tools": "0.3.3",
@@ -14,8 +14,9 @@
     "jquery-pjax": "^2.0.1",
     "jquery-zoom": "^1.7.20",
     "js-cookie": "^2.2.0",
-    "slick-carousel": "^1.7.1",
-    "plyr": "^3.3.12"
+    "plyr": "^3.3.12",
+    "simplelightbox": "^1.13.0",
+    "slick-carousel": "^1.7.1"
   },
   "scripts": {
     "start": "npm i -g @shopify/slate && npm i",
@@ -24,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zehnergroup/z-theme.git"
+    "url": "https://github.com/stefbowerman/carolla.git"
   },
   "keywords": [],
-  "author": "Justin Mather, Scott Harrington, Stefan Bowerman, Zehner Group",
+  "author": "Stefan Bowerman",
   "bugs": {
-    "url": "https://github.com/zehnergroup/z-theme/issues"
+    "url": "https://github.com/stefbowerman/carolla/issues"
   },
-  "homepage": "https://github.com/zehnergroup/z-theme"
+  "homepage": "https://github.com/stefbowerman/carolla"
 }

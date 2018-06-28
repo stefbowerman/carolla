@@ -14,8 +14,12 @@
 {% if article %}
 
   {% if article.metafields.podcast_mp3.part_1 != blank %}
+    {% assign part_1_title = article.title %}
+    {% if article.metafields.podcast_mp3.part_2 != blank %}
+      {% assign part_1_title = part_1_title | append: ' - Part 1' %}
+    {% endif %}
     {
-      "title": {{ article.title | json }},
+      "title": {{ part_1_title | json }},
       "link": {{ article.url | json }},
       "src": {{ article.metafields.podcast_mp3.part_1 | json }}
     }

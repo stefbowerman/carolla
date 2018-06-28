@@ -74,4 +74,12 @@
  * https://github.com/defunkt/jquery-pjax
  */
  // =require /../../node_modules/jquery-pjax/jquery.pjax.js
+
+/*
+  By André Rinas, www.andrerinas.de
+  Available for use under the MIT License
+  1.13.0
+*/
+// =require /../../node_modules/simplelightbox/dist/simple-lightbox.min.js
+
  

@@ -48,6 +48,7 @@ window.theme = window.theme || {};
 // =require sections/hero.js
 // =require sections/audioPlayer.js
 // =require sections/social.js
+// =require sections/article.js
 
 /*================ Templates ================*/
 // =require templates/customers-addresses.js
@@ -85,6 +86,7 @@ window.theme = window.theme || {};
     sections.register('slideshow', theme.Slideshow);
     sections.register('cart', theme.Cart);
     sections.register('social', theme.Social);
+    sections.register('article', theme.Article);
   }
 
   function unregisterContentSections() {
@@ -97,6 +99,7 @@ window.theme = window.theme || {};
     sections.unregister('slideshow');
     sections.unregister('cart');
     sections.unregister('social');
+    sections.unregister('article');
   }
 
   // Runs everytime pjax completes an AJAX request
@@ -148,6 +151,7 @@ window.theme = window.theme || {};
 
   // Runs once on initial page load
   function domReadyOnce() {
+
     registerGlobalSections();
 
     // Apply UA classes to the document
