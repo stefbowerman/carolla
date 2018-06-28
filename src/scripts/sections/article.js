@@ -40,9 +40,11 @@ theme.Article = (function($) {
       $img.wrap($link);
     });
 
-    $('.' + classes.galleryImageLink).simpleLightbox({});
-
-    // $('.' + classes.galleryImageLink).featherlightGallery();
+    $('.' + classes.galleryImageLink).simpleLightbox({
+      captionSelector: 'img',
+      captionType: 'attr',
+      captionsData: 'alt'
+    });
 
   }
 
