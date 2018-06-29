@@ -190,16 +190,11 @@ window.theme = window.theme || {};
 
       $document.pjax('a', '#MainContent', { fragment: '#MainContent', timeout: 10000 });
 
-      // $document.on('submit', 'form[data-pjax]', function(event) {
-      //   event.preventDefault();
-      //   $.pjax.submit(event, '#MainContent', {
-      //       'push': true,
-      //       'replace': false,
-      //       'timeout': 5000,
-      //       'scrollTo': 0,
-      //       'maxCacheLength': 0
-      //   });
-      // });
+      $document.on('submit', 'form[data-pjax]', function(event) {
+        // event.preventDefault();
+        console.log('submitting');
+        $.pjax.submit(event, '#MainContent');
+      });
       
       $document.on('pjax:start', function() {
         $body.addClass('pjax-loading');
