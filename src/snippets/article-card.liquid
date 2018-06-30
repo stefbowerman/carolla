@@ -62,7 +62,7 @@
       {% if show_author or show_date %}
         <div class="article-card__info-meta">
           {% capture author_link %}<a href="{{ article.user.homepage }}">{{ article.author }}</a>{% endcapture %}
-          {% capture date %}{{ article.published_at | time_tag: format: 'month_day' }}{% endcapture %}
+          {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
           {% if show_author and show_date %}
             {{ 'blogs.article.author_on_date_html' | t: author: author_link, date: date }}
           {% elsif show_author %}
