@@ -166,11 +166,6 @@
 
 .hero__text {
   margin-bottom: 45px;
-  display: none;
-
-  @media (min-width: $screen-md-min) {
-    display: block;
-  }
 }
 
 .hero__cta {

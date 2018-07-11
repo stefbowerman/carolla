@@ -8,7 +8,7 @@
 theme.Article = (function($) {
 
   var selectors = {
-  
+    articleContent: '[data-article-content]'
   };
 
   var classes = {
@@ -22,23 +22,27 @@ theme.Article = (function($) {
     this.name = 'article';
     this.namespace = '.'+this.name;
 
-    this.$container.find('article img').each(function() {
-      var $link = $('<a>');
-      var $img = $(this);
-      var src  = $img.attr('src');
+    this.articleType = this.$container.data('article-type');
 
-      var size = slate.Image.imageSize(src);
-          size += '.'; // make sure we get the size right before the '.'
+    if(this.articleType == "podcast") {
+      this.$container.find(selectors.articleContent).find('img').each(function() {
+        var $link = $('<a>');
+        var $img = $(this);
+        var src  = $img.attr('src');
 
-      if(size) {
-        src = src.replace(size, '1000x.');
-      }
+        var size = slate.Image.imageSize(src);
+            size += '.'; // make sure we get the size right before the '.'
 
-      $link.attr('href', src);
-      $link.addClass(classes.galleryImageLink);
+        if(size) {
+          src = src.replace(size, '1000x.');
+        }
 
-      $img.wrap($link);
-    });
+        $link.attr('href', src);
+        $link.addClass(classes.galleryImageLink);
+
+        $img.wrap($link);
+      });
+    }
 
     $('.' + classes.galleryImageLink).simpleLightbox({
       captionSelector: 'img',

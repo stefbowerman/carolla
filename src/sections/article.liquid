@@ -1,4 +1,3 @@
-<div data-section-id="{{ section.id }}" data-section-type="article">
   {% comment %}
     When a comment is submitted, the browser is redirected to a page that includes 
     the new comment id in its URL.
@@ -43,6 +42,8 @@
     {% endif %}
   {% endcapture %}
 
+<div data-section-id="{{ section.id }}" data-section-type="article" data-article-type="{% if is_podcast %}podcast{% else %}article{% endif %}">
+
   <div class="layout-content-wrapper">
     <div class="container">
 
@@ -59,17 +60,59 @@
               {% endcapture %}
 
               {% if podcast_data != blank %}
-                {% assign podcast_data = podcast_data | prepend: '[' %}
-                {% assign podcast_data = podcast_data | append: ']' %}
-
-                {% capture cta_attributes %}
-                  data-audio-player-track-trigger="{{ podcast_data | escape }}"
-                {% endcapture %}
 
                 <div class="content-header">
-                  <a href="#" class="btn btn-primary" {{ cta_attributes }}>
-                    Listen Now                
-                  </a>
+
+                  {% assign part_1_ui = '' %}
+                  {% assign part_2_ui = '' %}
+
+                  {% if article.metafields.podcast_mp3.part_1 != blank %}
+                    {% assign part_1_title = article.title %}
+                    {% if article.metafields.podcast_mp3.part_2 != blank %}
+                      {% assign part_1_title = part_1_title | append: ' - Part 1' %}
+                    {% endif %}
+                    {% capture part_1_ui %}
+                      {% capture data %}
+                        [{
+                          "title": {{ part_1_title | json }},
+                          "link": {{ article.url | json }},
+                          "src": {{ article.metafields.podcast_mp3.part_1 | json }}
+                        }]
+                      {% endcapture %}
+                      <div>
+                        <a href="#" class="btn btn-primary" style="width: 260px" data-audio-player-track-trigger="{{ data | escape | strip }}">
+                          Listen Now{% if article.metafields.podcast_mp3.part_2 != blank %} - Part 1{% endif %}
+                        </a>
+                        <a href="{{ article.metafields.podcast_mp3.part_1 }}" target="_blank" title="Download Episode">
+                          <img src="{{ 'icon-download.png' | asset_img_url: '100x' }}" style="margin-left: 10px; width: 25px;" />
+                        </a>
+                      </div>
+                    {% endcapture %}
+
+                    {% if article.metafields.podcast_mp3.part_2 != blank %}
+                      {% capture part_2_ui %}
+                        {% capture data %}
+                          [{
+                            "title": {{ article.title | append: ' - Part 2' | json }},
+                            "link": {{ article.url | json }},
+                            "src": {{ article.metafields.podcast_mp3.part_2 | json }}
+                          }]
+                        {% endcapture %}
+                        <div style="margin-top: 1rem">
+                          <a href="#" class="btn btn-primary" style="width: 260px" data-audio-player-track-trigger="{{ data | escape | strip }}">
+                            Listen Now - Part 2
+                          </a>
+                          <a href="{{ article.metafields.podcast_mp3.part_2 }}" target="_blank" title="Download Episode">
+                            <img src="{{ 'icon-download.png' | asset_img_url: '100x' }}" style="margin-left: 10px; width: 25px;" />
+                          </a>
+                        </div>
+                      {% endcapture %}
+                    {% endif %}
+                  {% endif %}
+
+                  {{ part_1_ui }}
+                  {{ part_2_ui }}
+
                 </div>
               {% endif %}
             {% endif %}
@@ -79,7 +122,7 @@
               <br />
             {% endif %}    
 
-            <div class="rte" itemprop="articleBody">
+            <div class="rte" itemprop="articleBody" data-article-content>
               {{ article.content }}
             </div>
 
