@@ -30,14 +30,18 @@
           "playlist": [
             {% assign articles_with_mp3s_count = 0 %}
             {% for article in podcast_blog.articles limit: 200 %}
-              {% assign has_mp3 = false %}
-              {% if article.metafields.podcast_mp3.part_1 != blank or article.metafields.podcast_mp3.part_2 != blank %}
-                {% unless forloop.first or articles_with_mp3s_count == 0 %},{% endunless %}
-                {% assign articles_with_mp3s_count = articles_with_mp3s_count | plus: 1 %}
+              {% capture article_data %}
                 {% include 'podcast-article-data', article: article %}
+              {% endcapture %}
+              {% assign article_data = article_data | strip %}
+
+              {% if article_data != blank %}
+                {% unless articles_with_mp3s_count == 0 %},{% endunless %}
+                {{ article_data }}
+                {% assign articles_with_mp3s_count = articles_with_mp3s_count | plus: 1 %}
                 {% if articles_with_mp3s_count == MAX_PLAYLIST_ITEMS %}
                   {% break %}
-                {% endif %}
+                {% endif %}                
               {% endif %}
             {% endfor %}
           ]
